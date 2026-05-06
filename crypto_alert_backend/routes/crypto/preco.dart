@@ -1,13 +1,30 @@
 import 'package:dart_frog/dart_frog.dart';
-import '../../lib/modules/crypto/crypto_service.dart';
+import 'package:crypto_alert_backend/clients/binance_client.dart';
 
 Future<Response> onRequest(RequestContext context) async {
   final symbol = context.request.uri.queryParameters['symbol'];
 
-  final service = CryptoService();
-  final price = await service.getPreco(symbol!);
+  if (symbol == null) {
+    return Response.json(
+      statusCode: 400,
+      body: {'error': 'Symbol is required'},
+    );
+  }
 
-  return Response.json(
-    body: {'symbol': symbol, 'price': price},
-  );
+  try {
+    final client = BinanceClient();
+    final price = await client.getPrice(symbol);
+
+    return Response.json(
+      body: {
+        'symbol': symbol,
+        'price': price,
+      },
+    );
+  } catch (e) {
+    return Response.json(
+      statusCode: 500,
+      body: {'error': e.toString()},
+    );
+  }
 }
