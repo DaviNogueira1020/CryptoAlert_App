@@ -23,7 +23,6 @@ class Rodape extends StatefulWidget {
     this.iconSize = 30, // tamanho do icone
     this.initialBottonClicked = 0,
   });
-
   @override
   State<Rodape> createState() => _RodapeState();
 }
@@ -55,7 +54,7 @@ class _RodapeState extends State<Rodape> {
 
                   child: Center(
                     child: SvgPicture.asset(
-                      'assets/icons/notifications.svg',
+                      'assets/Icons/notifications.svg',
                       colorFilter: ColorFilter.mode(
                         _selectedIndex == 0 ? widget.bottonClicked : widget.notificationsColor,
                         BlendMode.srcIn,
@@ -78,7 +77,7 @@ class _RodapeState extends State<Rodape> {
 
                 child: Center(
                   child: SvgPicture.asset(
-                    'assets/icons/home.svg',
+                    'assets/Icons/home.svg',
                     colorFilter: ColorFilter.mode(
                       _selectedIndex == 1 ? widget.bottonClicked : widget.homeColor, 
                       BlendMode.srcIn,
@@ -101,7 +100,7 @@ class _RodapeState extends State<Rodape> {
 
                   child: Center(
                     child: SvgPicture.asset(
-                      'assets/icons/news.svg',
+                      'assets/Icons/news.svg',
                       colorFilter: ColorFilter.mode(
                         _selectedIndex == 2 ? widget.bottonClicked : widget.newsColor, 
                         BlendMode.srcIn,
@@ -124,7 +123,7 @@ class _RodapeState extends State<Rodape> {
 
                   child: Center(
                     child: SvgPicture.asset(
-                      'assets/icons/perfil.svg',
+                      'assets/Icons/perfil.svg',
                       colorFilter: ColorFilter.mode(
                         _selectedIndex == 3 ? widget.bottonClicked : widget.perfilColor, 
                         BlendMode.srcIn,
