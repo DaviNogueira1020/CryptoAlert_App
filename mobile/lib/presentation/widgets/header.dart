@@ -10,15 +10,15 @@ class Header extends StatelessWidget {
     super.key,
     this.background = const Color(0xFF0F172A),
     this.logoSize = 51,
-    this.textSize = 20,
-    this.textColor = Colors.white,
+    this.textSize = 32,
+    this.textColor = const Color(0xFF22D3EE),
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 65,
+      height: 70,
       color: background,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -26,8 +26,8 @@ class Header extends StatelessWidget {
           Image.asset('assets/Logo/CriptAlert.png', width: logoSize, height: logoSize),
           const SizedBox(width: 10),
           Text(
-            'Alerta de criptografia',
-            style: TextStyle(fontSize: textSize, color: textColor),
+            'CriptAlert',
+            style: TextStyle(fontWeight: FontWeight.w600 ,fontSize: textSize, color: textColor),
           ),
         ],
       ),

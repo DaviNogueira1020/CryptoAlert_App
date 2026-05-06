@@ -13,23 +13,24 @@ class Index extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: const Color(0xFF0F172A),
         body: Column(
           children: [
             const Header(),
-            
+
             Expanded(
               child: Container(
                 color: const Color(0xFF0B0F1A),
                 child: const Center(
                   child: Text(
                     "Conteúdo da tela",
-                    style: TextStyle(color: Colors.white), 
+                    style: TextStyle(color: Colors.white),
                   ),
-                )
-              )
+                ),
+              ),
             ),
-            
-            const Rodape(initialBottonClicked: 1,),
+
+            const Rodape(initialBottonClicked: 1),
           ],
         ),
       ),

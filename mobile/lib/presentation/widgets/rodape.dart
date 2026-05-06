@@ -15,12 +15,12 @@ class Rodape extends StatefulWidget {
   const Rodape({
     super.key,
     this.backGround = const Color(0xFF0F172A),
-    this.notificationsColor = Colors.white, // cor do icone de notificações
-    this.homeColor = Colors.white, // cor do icone home
-    this.newsColor = Colors.white, // cor do icone de noticias
-    this.perfilColor = Colors.white, // cor do icone de perfil
-    this.bottonClicked = const Color(0xFF06B6D4), // cor do icone quando clicado
-    this.iconSize = 30, // tamanho do icone
+    this.notificationsColor = Colors.white,
+    this.homeColor = Colors.white,
+    this.newsColor = Colors.white,
+    this.perfilColor = Colors.white,
+    this.bottonClicked = const Color(0xFF06B6D4),
+    this.iconSize = 30,
     this.initialBottonClicked = 0,
   });
   @override
@@ -35,23 +35,21 @@ class _RodapeState extends State<Rodape> {
     super.initState();
     _selectedIndex = widget.initialBottonClicked;
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
-      width: double.infinity,
       color: widget.backGround,
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              child: GestureDetector(
-                  onTap: () {
-                    print("Notifications clicked");
-                    setState(() => _selectedIndex = 0);
-                  },
-
+      child: SafeArea(
+        top: false,
+        child: SizedBox(
+          height: 80,
+          width: double.infinity,
+          child: Row(
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => setState(() => _selectedIndex = 0),
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/Icons/notifications.svg',
@@ -63,79 +61,59 @@ class _RodapeState extends State<Rodape> {
                       height: widget.iconSize,
                     ),
                   ),
+                ),
               ),
-            ),
-          ),
-
-          Expanded(
-            child: Container(
-              child: GestureDetector(
-                onTap: (){
-                  print("Home clicked");
-                  setState(() => _selectedIndex = 1);
-                },
-
-                child: Center(
-                  child: SvgPicture.asset(
-                    'assets/Icons/home.svg',
-                    colorFilter: ColorFilter.mode(
-                      _selectedIndex == 1 ? widget.bottonClicked : widget.homeColor, 
-                      BlendMode.srcIn,
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => setState(() => _selectedIndex = 1),
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/Icons/home.svg',
+                      colorFilter: ColorFilter.mode(
+                        _selectedIndex == 1 ? widget.bottonClicked : widget.homeColor,
+                        BlendMode.srcIn,
+                      ),
+                      width: widget.iconSize,
+                      height: widget.iconSize,
                     ),
-                    width: widget.iconSize,
-                    height: widget.iconSize,
                   ),
-                )
+                ),
               ),
-            ),
-          ),
-
-          Expanded(
-            child: Container(
-              child: GestureDetector(
-                  onTap: () {
-                    print("News clicked");
-                    setState(() => _selectedIndex = 2);
-                  },
-
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => setState(() => _selectedIndex = 2),
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/Icons/news.svg',
                       colorFilter: ColorFilter.mode(
-                        _selectedIndex == 2 ? widget.bottonClicked : widget.newsColor, 
+                        _selectedIndex == 2 ? widget.bottonClicked : widget.newsColor,
                         BlendMode.srcIn,
                       ),
                       width: widget.iconSize,
                       height: widget.iconSize,
                     ),
                   ),
-                )
+                ),
               ),
-            ),
-
-          Expanded(
-            child: Container(
-              child: GestureDetector(
-                  onTap: () {
-                    print("Perfil clicked");
-                    setState(() => _selectedIndex = 3);
-                  },
-
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => setState(() => _selectedIndex = 3),
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/Icons/perfil.svg',
                       colorFilter: ColorFilter.mode(
-                        _selectedIndex == 3 ? widget.bottonClicked : widget.perfilColor, 
+                        _selectedIndex == 3 ? widget.bottonClicked : widget.perfilColor,
                         BlendMode.srcIn,
                       ),
                       width: widget.iconSize,
                       height: widget.iconSize,
                     ),
                   ),
-                )
+                ),
               ),
-            ),
-        ],
+            ],
+          ),
+        ),
       ),
     );
   }
