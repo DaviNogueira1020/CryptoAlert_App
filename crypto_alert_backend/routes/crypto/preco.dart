@@ -1,5 +1,5 @@
 import 'package:dart_frog/dart_frog.dart';
-import 'package:crypto_alert_backend/clients/binance_client.dart';
+import 'package:crypto_alert_backend/modules/crypto/crypto_service.dart';
 
 Future<Response> onRequest(RequestContext context) async {
   final symbol = context.request.uri.queryParameters['symbol'];
@@ -12,8 +12,8 @@ Future<Response> onRequest(RequestContext context) async {
   }
 
   try {
-    final client = BinanceClient();
-    final price = await client.getPrice(symbol);
+    final service = CryptoService();
+    final price = await service.getPreco(symbol);
 
     return Response.json(
       body: {
