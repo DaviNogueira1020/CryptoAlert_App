@@ -11,7 +11,7 @@ class BinanceClient {
     final response = await http.get(url);
     
     if(response.statusCode != 200){
-      throw Exception('Erro ao buscar preço na Binance');
+      throw Exception('Error when looking for price on Binance.');
     }
 
     final data = jsonDecode(response.body) as Map<String, dynamic>;

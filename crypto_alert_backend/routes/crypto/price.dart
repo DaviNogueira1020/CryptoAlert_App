@@ -13,7 +13,7 @@ Future<Response> onRequest(RequestContext context) async {
 
   try {
     final service = CryptoService();
-    final price = await service.getPreco(symbol);
+    final price = await service.getPrice(symbol);
 
     return Response.json(
       body: {
