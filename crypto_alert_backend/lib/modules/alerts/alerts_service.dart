@@ -35,4 +35,8 @@ class AlertsService {
   List<Alert> getAlerts(){
     return _repository.findAll();
   }
+
+  List<Alert> getActiveAlerts(){      
+    return _repository.findActive();
+  }
 }

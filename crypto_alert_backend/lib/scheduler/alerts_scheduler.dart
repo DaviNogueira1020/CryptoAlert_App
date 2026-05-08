@@ -11,7 +11,7 @@ class AlertsScheduler{
       const Duration(minutes: 1),
       (_) async{
         print('[SCHEDULER] Running alerts check...');
-        await _checkerService.checkAllAlerts();
+        await _checkerService.checkActiveAlerts();
       },
     );
   }
