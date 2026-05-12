@@ -15,12 +15,14 @@ class AlertsCheckerService{
       switch (alert.type){
         case 'above':
           if(currentPrice >= alert.target){
-            print('[ALERT TRIGGERED] ${alert.symbol} above ${alert.target}');
+            print('[ALERT TRIGGERED] ${alert.symbol} above ${alert.target} ' 
+                    '(Current price: ${currentPrice.toStringAsFixed(2)})');
           }
           break;
-        case 'bellow':
+        case 'below':
           if(currentPrice <= alert.target){
-            print('[ALERT TRIGGERED] ${alert.symbol} below ${alert.target}');
+            print('[ALERT TRIGGERED] ${alert.symbol} below ${alert.target} ' 
+                    '(Current price: ${currentPrice.toStringAsFixed(2)})');
           }
           break;
         default:

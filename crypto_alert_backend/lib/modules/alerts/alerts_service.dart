@@ -4,7 +4,7 @@ import 'dart:math';
 
 class AlertsService {
   final AlertsRepository _repository = alertsRepository;
-
+  
   Alert createAlert({
     required String symbol,
     required double target,
@@ -14,8 +14,8 @@ class AlertsService {
       throw Exception('Symbol is required');
     }
 
-    if(type != 'above' && type != 'bellow'){
-      throw Exception('Type must be "above" or "bellow"');
+    if(type != 'above' && type != 'below'){
+      throw Exception('Type must be "above" or "below"');
     }
 
     final id = Random().nextInt(100000).toString(); // MOCK
@@ -38,5 +38,33 @@ class AlertsService {
 
   List<Alert> getActiveAlerts(){      
     return _repository.findActive();
+  }
+
+  Alert toggleAlertStatus(String id){
+    final toggledAlert = _repository.toggleStatus(id);
+  
+    return toggledAlert;
+  }
+
+  Alert updateAlert(
+    String id, {
+    String? symbol, 
+    double? target, 
+    String? type
+  }) {
+    final updatedAlert = _repository.update(
+      id,
+      symbol: symbol,
+      target: target,
+      type: type
+    );
+    
+    return updatedAlert;
+  }
+
+  Alert deleteAlert(String id){
+    final deletedAlert = _repository.delete(id);
+
+    return deletedAlert;
   }
 }
