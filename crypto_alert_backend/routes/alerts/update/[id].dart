@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crypto_alert_backend/modules/alerts/alert_type.dart';
 import 'package:crypto_alert_backend/modules/alerts/alerts_service.dart';
 import 'package:dart_frog/dart_frog.dart';
 
@@ -17,7 +18,9 @@ Future<Response> onRequest(RequestContext context, String id) async {
 
   final symbol = data['symbol'] as String?;
   final target = (data['target'] as num?)?.toDouble(); // num = int || double
-  final type = data['type'] as String?;
+  final type = data['type'] != null ? 
+              AlertTypeExtension.fromString(data['type'] as String) 
+              : null;
 
   final service = AlertsService();
   
@@ -30,7 +33,7 @@ Future<Response> onRequest(RequestContext context, String id) async {
       'id': updatedAlert.id,
       'symbol': updatedAlert.symbol,
       'target': updatedAlert.target,
-      'type': updatedAlert.type,
+      'type': updatedAlert.type.value,
       'active': updatedAlert.active,
     },
   );

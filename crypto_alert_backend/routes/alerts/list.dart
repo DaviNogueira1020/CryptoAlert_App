@@ -1,5 +1,6 @@
 import 'package:dart_frog/dart_frog.dart';
 import 'package:crypto_alert_backend/modules/alerts/alerts_service.dart';
+import 'package:crypto_alert_backend/modules/alerts/alert_type.dart';
 
 Future<Response> onRequest(RequestContext context) async {
   if(context.request.method != HttpMethod.get){
@@ -18,7 +19,7 @@ Future<Response> onRequest(RequestContext context) async {
       'id': alert.id,
       'symbol': alert.symbol,
       'target': alert.target,
-      'type': alert.type,
+      'type': alert.type.value,
       'active': alert.active,
     };
   }).toList();

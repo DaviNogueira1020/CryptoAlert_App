@@ -1,8 +1,10 @@
+import 'package:crypto_alert_backend/modules/alerts/alert_type.dart';
+
 class Alert{
   final String id;
   final String symbol;
   final double target;
-  final String type; // 'above' or 'below'
+  final AlertType type; // 'above' or 'below'
   final bool active;
 
   Alert({
@@ -16,7 +18,7 @@ class Alert{
   Alert copyWith({
     String? symbol,
     double? target,
-    String? type,
+    AlertType? type,
     bool? active,
   }) {
     return Alert(
@@ -68,7 +70,7 @@ class AlertsRepository {
     String id, {
     String? symbol,
     double? target,
-    String? type,
+    AlertType? type,
   }) {
     final index = _getAlertIndex(id);
     

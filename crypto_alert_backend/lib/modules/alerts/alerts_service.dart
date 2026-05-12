@@ -1,3 +1,4 @@
+import 'package:crypto_alert_backend/modules/alerts/alert_type.dart';
 import 'package:crypto_alert_backend/modules/alerts/alerts_repository.dart';
 import 'package:crypto_alert_backend/core/database/mock_database.dart';
 import 'dart:math';
@@ -8,14 +9,10 @@ class AlertsService {
   Alert createAlert({
     required String symbol,
     required double target,
-    required String type,
+    required AlertType type,
   }){
     if(symbol.isEmpty){
       throw Exception('Symbol is required');
-    }
-
-    if(type != 'above' && type != 'below'){
-      throw Exception('Type must be "above" or "below"');
     }
 
     final id = Random().nextInt(100000).toString(); // MOCK
@@ -50,7 +47,7 @@ class AlertsService {
     String id, {
     String? symbol, 
     double? target, 
-    String? type
+    AlertType? type
   }) {
     final updatedAlert = _repository.update(
       id,

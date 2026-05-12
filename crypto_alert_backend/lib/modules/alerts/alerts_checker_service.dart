@@ -1,3 +1,4 @@
+import 'package:crypto_alert_backend/modules/alerts/alert_type.dart';
 import 'package:crypto_alert_backend/modules/alerts/alerts_service.dart';
 import 'package:crypto_alert_backend/modules/crypto/crypto_service.dart';
 
@@ -13,13 +14,13 @@ class AlertsCheckerService{
       final currentPrice = await _cryptoService.getPrice(alert.symbol);
 
       switch (alert.type){
-        case 'above':
+        case AlertType.above:
           if(currentPrice >= alert.target){
             print('[ALERT TRIGGERED] ${alert.symbol} above ${alert.target} ' 
                     '(Current price: ${currentPrice.toStringAsFixed(2)})');
           }
           break;
-        case 'below':
+        case AlertType.below:
           if(currentPrice <= alert.target){
             print('[ALERT TRIGGERED] ${alert.symbol} below ${alert.target} ' 
                     '(Current price: ${currentPrice.toStringAsFixed(2)})');
