@@ -82,8 +82,8 @@ class AlertsRepository {
     return _alerts[index];
   }
 
-  Alert delete(String? id){
-    final index = _getAlertIndex(id!);
+  Alert delete(String id){
+    final index = _getAlertIndex(id);
     
     final deletedAlert = _alerts[index];
 
