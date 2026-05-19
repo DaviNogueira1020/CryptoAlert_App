@@ -26,8 +26,6 @@ class AlertsCheckerService{
                     '(Current price: ${currentPrice.toStringAsFixed(2)})');
           }
           break;
-        default:
-          break;
       }
     }
   }
