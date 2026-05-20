@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  flutter_svg: ^2.0.0
 
   cupertino_icons: ^1.0.8
   http: ^1.2.1
@@ -27,4 +29,11 @@ dev_dependencies:
   flutter_lints: ^4.0.0
 
 flutter:
+  assets:
+    - assets/Logo/
+    - assets/Icons/
+    
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
   uses-material-design: true

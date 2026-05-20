@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/presentation/pages/index.dart';
+
+
+void main() {
+  runApp(const MyApp());
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'services/banco_de_dados.dart';
