@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobile/presentation/pages/login.dart';
 
 class Rodape extends StatefulWidget {
   final Color backGround;
@@ -35,7 +36,7 @@ class _RodapeState extends State<Rodape> {
     super.initState();
     _selectedIndex = widget.initialBottonClicked;
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,13 +44,16 @@ class _RodapeState extends State<Rodape> {
       child: SafeArea(
         top: false,
         child: SizedBox(
-          height: 80,
+          height: 70,
           width: double.infinity,
           child: Row(
             children: [
               Expanded(
                 child: GestureDetector(
-                  onTap: () => setState(() => _selectedIndex = 0),
+                  onTap: () {
+                    setState(() => _selectedIndex = 0);
+                    print('Notifications clicked');
+                  },
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/Icons/notifications.svg',
@@ -65,7 +69,10 @@ class _RodapeState extends State<Rodape> {
               ),
               Expanded(
                 child: GestureDetector(
-                  onTap: () => setState(() => _selectedIndex = 1),
+                  onTap: () {
+                    setState(() => _selectedIndex = 1);
+                    print('Home clicked');
+                  },
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/Icons/home.svg',
@@ -81,7 +88,10 @@ class _RodapeState extends State<Rodape> {
               ),
               Expanded(
                 child: GestureDetector(
-                  onTap: () => setState(() => _selectedIndex = 2),
+                  onTap: () {
+                    setState(() => _selectedIndex = 2);
+                    print('News clicked');
+                  },
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/Icons/news.svg',
@@ -97,7 +107,14 @@ class _RodapeState extends State<Rodape> {
               ),
               Expanded(
                 child: GestureDetector(
-                  onTap: () => setState(() => _selectedIndex = 3),
+                  onTap: () {
+                    setState(() => _selectedIndex = 3);
+                    print('Profile clicked');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Login()),
+                    );
+                  },
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/Icons/perfil.svg',

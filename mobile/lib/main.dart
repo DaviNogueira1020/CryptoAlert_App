@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/presentation/pages/home/index.dart';
+import 'package:mobile/presentation/pages/index.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -10,12 +11,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Index()
-        )
-      ),
+    return const MaterialApp(
+      home: Index(), // só isso
     );
   }
 }

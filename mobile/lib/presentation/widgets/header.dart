@@ -12,7 +12,7 @@ class Header extends StatelessWidget {
     this.logoSize = 51,
     this.textSize = 32,
     this.textColor = const Color(0xFF22D3EE),
-  });
+  }); 
 
   @override
   Widget build(BuildContext context) {
