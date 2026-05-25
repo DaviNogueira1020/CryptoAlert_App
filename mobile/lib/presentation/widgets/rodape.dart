@@ -12,7 +12,7 @@ class Rodape extends StatefulWidget {
 
   final double iconSize;
   final int initialBottonClicked;
-  
+
   const Rodape({
     super.key,
     this.backGround = const Color(0xFF0F172A),
@@ -53,12 +53,20 @@ class _RodapeState extends State<Rodape> {
                   onTap: () {
                     setState(() => _selectedIndex = 0);
                     print('Notifications clicked');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Login(selectedButton: 1,),
+                      )
+                    );
                   },
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/Icons/notifications.svg',
                       colorFilter: ColorFilter.mode(
-                        _selectedIndex == 0 ? widget.bottonClicked : widget.notificationsColor,
+                        _selectedIndex == 0
+                            ? widget.bottonClicked
+                            : widget.notificationsColor,
                         BlendMode.srcIn,
                       ),
                       width: widget.iconSize,
@@ -77,7 +85,9 @@ class _RodapeState extends State<Rodape> {
                     child: SvgPicture.asset(
                       'assets/Icons/home.svg',
                       colorFilter: ColorFilter.mode(
-                        _selectedIndex == 1 ? widget.bottonClicked : widget.homeColor,
+                        _selectedIndex == 1
+                            ? widget.bottonClicked
+                            : widget.homeColor,
                         BlendMode.srcIn,
                       ),
                       width: widget.iconSize,
@@ -96,7 +106,9 @@ class _RodapeState extends State<Rodape> {
                     child: SvgPicture.asset(
                       'assets/Icons/news.svg',
                       colorFilter: ColorFilter.mode(
-                        _selectedIndex == 2 ? widget.bottonClicked : widget.newsColor,
+                        _selectedIndex == 2
+                            ? widget.bottonClicked
+                            : widget.newsColor,
                         BlendMode.srcIn,
                       ),
                       width: widget.iconSize,
@@ -112,14 +124,17 @@ class _RodapeState extends State<Rodape> {
                     print('Profile clicked');
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const Login()),
+                      MaterialPageRoute(
+                          builder: (context) => const Login()),
                     );
                   },
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/Icons/perfil.svg',
                       colorFilter: ColorFilter.mode(
-                        _selectedIndex == 3 ? widget.bottonClicked : widget.perfilColor,
+                        _selectedIndex == 3
+                            ? widget.bottonClicked
+                            : widget.perfilColor,
                         BlendMode.srcIn,
                       ),
                       width: widget.iconSize,
