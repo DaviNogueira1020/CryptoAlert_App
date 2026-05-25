@@ -117,7 +117,7 @@ class LoginState extends State<Login> {
                       ),
                       const SizedBox(width: 6),
                       Text(
-                        "Cadastrar",
+                        "Register",
                         style: TextStyle(
                           color: _selectedButtonIndex == 1
                               ? Colors.white
@@ -139,7 +139,7 @@ class LoginState extends State<Login> {
   Widget _buildContentLogin() {
     return GestureDetector(
       onTap: () {
-        print("teste");
+        print("Login done");
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -160,7 +160,7 @@ class LoginState extends State<Login> {
         ),
         child: const Center(
           child: Text(
-            "Criar conta",
+            "Create account",
             style: TextStyle(fontWeight: FontWeight.w600 , fontSize: 20 , color: Color(0xFF06B6D4)),
           ),
         ),
@@ -174,7 +174,7 @@ class LoginState extends State<Login> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Chave privada",
+          "Private key",
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -186,7 +186,7 @@ class LoginState extends State<Login> {
           controller: _emailController,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            hintText: "Digite sua chave",
+            hintText: "Enter your key",
             hintStyle: const TextStyle(color: Color(0xFF9CA3AF)),
             filled: true,
             fillColor: Colors.transparent,
@@ -208,7 +208,7 @@ class LoginState extends State<Login> {
         const SizedBox(height: 12),
         GestureDetector(
           onTap: () {
-            print("Chave: ${_emailController.text}");
+            print("Key: ${_emailController.text}");
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -225,7 +225,7 @@ class LoginState extends State<Login> {
             ),
             child: const Center(
               child: Text(
-                "Entrar",
+                "Enter",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
