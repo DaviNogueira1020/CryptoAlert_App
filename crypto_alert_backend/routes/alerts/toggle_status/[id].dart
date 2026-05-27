@@ -15,7 +15,7 @@ Future<Response> onRequest(RequestContext context, String id) async {
 
   return Response.json(
     body: {
-      'toggle': 'sucessful',
+      'message': 'Alert status toggled successfully',
       'alert': {
         'id': toggledAlert.id,
         'active': toggledAlert.active

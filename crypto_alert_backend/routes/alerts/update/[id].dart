@@ -29,7 +29,7 @@ Future<Response> onRequest(RequestContext context, String id) async {
 
   return Response.json(
     body: {
-      'update': 'sucessful',
+      'message': 'Alert updated successfully',
       'id': updatedAlert.id,
       'symbol': updatedAlert.symbol,
       'target': updatedAlert.target,

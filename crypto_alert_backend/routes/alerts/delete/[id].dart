@@ -15,7 +15,7 @@ Future<Response> onRequest(RequestContext context, String id) async {
 
   return Response.json(
     body: {
-      'deletion': 'successful',
+      'message': 'Alert deleted successfully',
       'id': deletedAlert.id,
     },
   );
