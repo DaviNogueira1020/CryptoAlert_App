@@ -24,7 +24,7 @@ Future<Response> onRequest(RequestContext context, String id) async {
 
   final service = AlertsService();
   
-  final updatedAlert = service.updateAlert(
+  final updatedAlert = await service.updateAlert(
     id, symbol: symbol, target: target, type: type);
 
   return Response.json(

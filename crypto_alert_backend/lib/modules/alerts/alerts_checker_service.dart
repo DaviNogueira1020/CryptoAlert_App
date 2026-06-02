@@ -10,7 +10,7 @@ class AlertsCheckerService{
   final NotificationsService _notificationsService = NotificationsService();
 
   Future<void> checkActiveAlerts() async{
-    final alerts = _alertsService.getActiveAlerts();
+    final alerts = await _alertsService.getActiveAlerts();
 
     for(final alert in alerts){
       final currentPrice = await _cryptoService.getPrice(alert.symbol);

@@ -11,7 +11,7 @@ Future<Response> onRequest(RequestContext context, String id) async {
 
   final service = AlertsService();
   
-  final deletedAlert = service.deleteAlert(id);
+  final deletedAlert = await service.deleteAlert(id);
 
   return Response.json(
     body: {

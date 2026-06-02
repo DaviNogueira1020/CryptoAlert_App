@@ -6,11 +6,11 @@ import 'dart:math';
 class AlertsService {
   final AlertsRepository _repository = alertsRepository;
   
-  Alert createAlert({
+  Future<Alert> createAlert({
     required String symbol,
     required double target,
     required AlertType type,
-  }){
+  }) async{
     if(symbol.isEmpty){
       throw Exception('Symbol is required');
     }
@@ -24,32 +24,32 @@ class AlertsService {
       type: type,
     );
 
-    _repository.create(alert);
+    await _repository.create(alert);
 
     return alert;
   }
 
-  List<Alert> getAlerts(){
-    return _repository.findAll();
+  Future<List<Alert>> getAlerts() async{
+    return await _repository.findAll();
   }
 
-  List<Alert> getActiveAlerts(){      
-    return _repository.findActive();
+  Future<List<Alert>> getActiveAlerts() async{      
+    return await _repository.findActive();
   }
 
-  Alert toggleAlertStatus(String id){
-    final toggledAlert = _repository.toggleStatus(id);
+  Future<Alert> toggleAlertStatus(String id) async{
+    final toggledAlert = await _repository.toggleStatus(id);
   
     return toggledAlert;
   }
 
-  Alert updateAlert(
+  Future<Alert> updateAlert(
     String id, {
     String? symbol, 
     double? target, 
     AlertType? type
-  }) {
-    final updatedAlert = _repository.update(
+  }) async{
+    final updatedAlert = await _repository.update(
       id,
       symbol: symbol,
       target: target,
@@ -59,8 +59,8 @@ class AlertsService {
     return updatedAlert;
   }
 
-  Alert deleteAlert(String id){
-    final deletedAlert = _repository.delete(id);
+  Future<Alert> deleteAlert(String id) async{
+    final deletedAlert = await _repository.delete(id);
 
     return deletedAlert;
   }

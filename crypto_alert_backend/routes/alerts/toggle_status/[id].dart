@@ -11,7 +11,7 @@ Future<Response> onRequest(RequestContext context, String id) async {
 
   final service = AlertsService();
   
-  final toggledAlert = service.toggleAlertStatus(id);
+  final toggledAlert = await service.toggleAlertStatus(id);
 
   return Response.json(
     body: {

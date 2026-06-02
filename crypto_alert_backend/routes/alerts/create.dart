@@ -21,7 +21,7 @@ Future<Response> onRequest(RequestContext context) async {
 
   final service = AlertsService();
   
-  final alert = service.createAlert(
+  final alert = await service.createAlert(
     symbol: symbol,
     target: target,
     type: type,

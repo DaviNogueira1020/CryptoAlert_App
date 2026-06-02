@@ -12,7 +12,7 @@ Future<Response> onRequest(RequestContext context) async {
 
   final service = AlertsService();
 
-  final alerts = service.getActiveAlerts();
+  final alerts = await service.getActiveAlerts();
 
   final response = alerts.map((alert){
     return{
