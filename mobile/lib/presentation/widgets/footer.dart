@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/presentation/pages/login.dart';
+import 'package:mobile/presentation/pages/onboardingScreen.dart';
 import 'package:mobile/presentation/pages/table.dart';
 
 class Footer extends StatefulWidget {
@@ -57,9 +58,9 @@ class _FooterState extends State<Footer> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Login(selectedButton: 1,),
+                          builder: (context) => const OnboardingScreen(),
                         ));
-                  },
+                    },
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/Icons/notifications.svg',
