@@ -212,11 +212,9 @@ class TableScreenState extends State<TableScreen> {
             children: [
               buildHeaderRow(),
               buildDataRow("1", "Bitcoin", "\$85,000", "+2.5%", true),
-              buildDataRow("2", "Ethereum", "\$2,500", "+1.2%", true,
-                  coinSvg: "assets/Icons/home.svg"),
+              buildDataRow("2", "Ethereum", "\$2,500", "+1.2%", true),
               buildDataRow("3", "Solana", "\$145", "-3.8%", false),
-              buildDataRow("4", "Cardano", "\$0.75", "+0.5%", true,
-                  changeSvg: "assets/Icons/turnSignalTrue.svg"),
+              buildDataRow("4", "Cardano", "\$0.75", "+0.5%", true),
               buildDataRow("5", "XRP", "\$2.10", "-1.1%", false),
               buildDataRow("6", "Dogecoin", "\$0.18", "+7.4%", true),
             ],
