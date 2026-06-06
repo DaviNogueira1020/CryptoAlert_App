@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobile/presentation/pages/login.dart';
 import 'package:mobile/presentation/pages/table.dart';
 
 class Footer extends StatefulWidget {
@@ -25,6 +24,7 @@ class Footer extends StatefulWidget {
     this.iconSize = 30,
     this.initialBottonClicked = 0,
   });
+
   @override
   State<Footer> createState() => _FooterState();
 }
@@ -79,7 +79,6 @@ class _FooterState extends State<Footer> {
                 child: GestureDetector(
                   onTap: () {
                     setState(() => _selectedIndex = 1);
-                    print('Home clicked');
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -105,7 +104,6 @@ class _FooterState extends State<Footer> {
                 child: GestureDetector(
                   onTap: () {
                     setState(() => _selectedIndex = 2);
-                    print('News clicked');
                   },
                   child: Center(
                     child: SvgPicture.asset(
@@ -126,10 +124,14 @@ class _FooterState extends State<Footer> {
                 child: GestureDetector(
                   onTap: () {
                     setState(() => _selectedIndex = 3);
-                    print('Profile clicked');
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const Login()),
+                      MaterialPageRoute(
+                        builder: (context) => PerfilPage(
+                          totalAlertas: AlertasService.totalAlertas,
+                          alertasAtivos: AlertasService.alertasAtivos,
+                        ),
+                      ),
                     );
                   },
                   child: Center(
