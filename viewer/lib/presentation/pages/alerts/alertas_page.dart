@@ -6,7 +6,6 @@ import 'package:mobile/presentation/pages/alerts/novo_alerta_page.dart';
 import 'package:mobile/services/alertasServices.dart';
 import 'package:mobile/models/alerta_model.dart';
 
-// Conteúdo da tela de alertas, usado dentro do MainShell (sem Header/Footer próprios)
 class AlertasPageContent extends StatefulWidget {
   const AlertasPageContent({super.key});
 
