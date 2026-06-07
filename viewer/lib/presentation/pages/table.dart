@@ -195,19 +195,9 @@ class TableScreenState extends State<TableScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0B0F1A),
-      body: Column(
-        children: [
-          const Header(),
-
-          Expanded(
-            child: buildTable(),
-          ),
-
-          const Footer(initialBottonClicked: 1,),
-        ],
-      ),
-    );
+    return buildTable();
   }
 }
+
+// alias para usar no shell e ajudar
+typedef TableContent = TableScreen;

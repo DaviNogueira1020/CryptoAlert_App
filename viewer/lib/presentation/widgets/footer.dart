@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobile/presentation/pages/login.dart';
-import 'package:mobile/presentation/pages/table.dart';
 
 class Footer extends StatefulWidget {
   final Color backGround;
@@ -10,9 +8,9 @@ class Footer extends StatefulWidget {
   final Color newsColor;
   final Color perfilColor;
   final Color bottonClicked;
-
   final double iconSize;
   final int initialBottonClicked;
+  final ValueChanged<int>? onTabSelected;
 
   const Footer({
     super.key,
@@ -24,7 +22,9 @@ class Footer extends StatefulWidget {
     this.bottonClicked = const Color(0xFF06B6D4),
     this.iconSize = 30,
     this.initialBottonClicked = 0,
+    this.onTabSelected,
   });
+
   @override
   State<Footer> createState() => _FooterState();
 }
@@ -39,7 +39,27 @@ class _FooterState extends State<Footer> {
   }
 
   @override
+  void didUpdateWidget(Footer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialBottonClicked != oldWidget.initialBottonClicked) {
+      _selectedIndex = widget.initialBottonClicked;
+    }
+  }
+
+  void _onTap(int index) {
+    setState(() => _selectedIndex = index);
+    widget.onTabSelected?.call(index);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final icons = [
+      'assets/Icons/notifications.svg',
+      'assets/Icons/home.svg',
+      'assets/Icons/news.svg',
+      'assets/Icons/perfil.svg',
+    ];
+
     return Container(
       color: widget.backGround,
       child: SafeArea(
@@ -48,25 +68,22 @@ class _FooterState extends State<Footer> {
           height: 70,
           width: double.infinity,
           child: Row(
-            children: [
-              Expanded(
+            children: List.generate(4, (i) {
+              final active = _selectedIndex == i;
+              final colors = [
+                widget.notificationsColor,
+                widget.homeColor,
+                widget.newsColor,
+                widget.perfilColor,
+              ];
+              return Expanded(
                 child: GestureDetector(
-                  onTap: () {
-                    setState(() => _selectedIndex = 0);
-                    print('Notifications clicked');
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Login(selectedButton: 1,),
-                        ));
-                  },
+                  onTap: () => _onTap(i),
                   child: Center(
                     child: SvgPicture.asset(
-                      'assets/Icons/notifications.svg',
+                      icons[i],
                       colorFilter: ColorFilter.mode(
-                        _selectedIndex == 0
-                            ? widget.bottonClicked
-                            : widget.notificationsColor,
+                        active ? widget.bottonClicked : colors[i],
                         BlendMode.srcIn,
                       ),
                       width: widget.iconSize,
@@ -74,80 +91,8 @@ class _FooterState extends State<Footer> {
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() => _selectedIndex = 1);
-                    print('Home clicked');
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TableScreen(),
-                        ));
-                  },
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/Icons/home.svg',
-                      colorFilter: ColorFilter.mode(
-                        _selectedIndex == 1
-                            ? widget.bottonClicked
-                            : widget.homeColor,
-                        BlendMode.srcIn,
-                      ),
-                      width: widget.iconSize,
-                      height: widget.iconSize,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() => _selectedIndex = 2);
-                    print('News clicked');
-                  },
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/Icons/news.svg',
-                      colorFilter: ColorFilter.mode(
-                        _selectedIndex == 2
-                            ? widget.bottonClicked
-                            : widget.newsColor,
-                        BlendMode.srcIn,
-                      ),
-                      width: widget.iconSize,
-                      height: widget.iconSize,
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() => _selectedIndex = 3);
-                    print('Profile clicked');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Login()),
-                    );
-                  },
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/Icons/perfil.svg',
-                      colorFilter: ColorFilter.mode(
-                        _selectedIndex == 3
-                            ? widget.bottonClicked
-                            : widget.perfilColor,
-                        BlendMode.srcIn,
-                      ),
-                      width: widget.iconSize,
-                      height: widget.iconSize,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+              );
+            }),
           ),
         ),
       ),

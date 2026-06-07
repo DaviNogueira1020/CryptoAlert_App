@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:mobile/presentation/pages/index.dart';
+import 'package:mobile/presentation/shell/main_shell.dart';
+import 'package:mobile/services/alertasServices.dart';
 import 'firebase_options.dart';
 import 'services/banco_de_dados.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Firebase só em Android/iOS
   if (!kIsWeb) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
     await BancoDeDados.inicializar();
   }
+
+  // Carrega os alertas salvos antes de abrir o app
+  await AlertasService.carregar();
 
   runApp(const MyApp());
 }
@@ -27,12 +30,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CriptAlert',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const Scaffold(
-        body: Index(),
-      ),
+      home: const MainShell(initialIndex: 1),
     );
   }
 }
