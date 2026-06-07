@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "845758125310",
+    "project_id": "criptalert-187b3",
+    "storage_bucket": "criptalert-187b3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845758125310:android:5337b774cfaaa8a7e781af",
+        "android_client_info": {
+          "package_name": "com.example.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVn1UoM1-UbN1CYwfb6v2ee8jEILCR3p8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845758125310:android:fe3ca39f9e397713e781af",
+        "android_client_info": {
+          "package_name": "com.exemple.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVn1UoM1-UbN1CYwfb6v2ee8jEILCR3p8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

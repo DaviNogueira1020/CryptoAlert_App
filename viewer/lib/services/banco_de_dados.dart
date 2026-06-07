@@ -10,8 +10,11 @@ class BancoDeDados {
   final Map<String, Map<String, dynamic>> _cache = {};
 
   static Future<void> inicializar() async {
-    _prefs = await SharedPreferences.getInstance();
-  }
+  _prefs = await SharedPreferences.getInstance();
+  
+  // Conecta ao emulador local
+//  FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+}
 
   Future<String> gerarKey() async {
     final key = Ulid().toString().toLowerCase();
