@@ -1,10 +1,9 @@
 import 'package:crypto_alert_backend/modules/alerts/alert_type.dart';
 import 'package:crypto_alert_backend/modules/alerts/alerts_repository.dart';
-import 'package:crypto_alert_backend/core/database/mock_database.dart';
 import 'dart:math';
 
 class AlertsService {
-  final AlertsRepository _repository = alertsRepository;
+  final AlertsRepository _repository = AlertsRepository();
   
   Future<Alert> createAlert({
     required String symbol,

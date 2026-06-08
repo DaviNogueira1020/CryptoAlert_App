@@ -1,16 +1,15 @@
 import 'package:crypto_alert_backend/modules/notifications/notification_model.dart';
 import 'package:crypto_alert_backend/modules/notifications/notifications_repository.dart';
-import 'package:crypto_alert_backend/core/database/mock_database.dart';
 import 'dart:math';
 
 class NotificationsService {
-  final NotificationsRepository _repository = notificationsRepository;
+  final NotificationsRepository _repository = NotificationsRepository();
   
-  AppNotification createNotification({
+  Future<AppNotification> createNotification({
     required String alertId,
     required String title,
     required String message,
-  }){
+  }) async{
     if (alertId.isEmpty) {
       throw Exception('Alert ID is required');
     }
@@ -32,27 +31,27 @@ class NotificationsService {
       message: message,
     );
 
-    _repository.create(notification);
+    await _repository.create(notification);
 
     return notification;
   }
 
-  List<AppNotification> getNotifications(){
-    return _repository.findAll();
+  Future<List<AppNotification>> getNotifications() async{
+    return await _repository.findAll();
   }
 
-  List<AppNotification> getUnreadNotifications(){      
-    return _repository.findUnread();
+  Future<List<AppNotification>> getUnreadNotifications() async{      
+    return await _repository.findUnread();
   }
 
-  AppNotification markNotificationAsRead(String id){
-    final markedAsReadNotification = _repository.markAsRead(id);
+  Future<AppNotification> markNotificationAsRead(String id) async{
+    final markedAsReadNotification = await _repository.markAsRead(id);
   
     return markedAsReadNotification;
   }
 
-  AppNotification deleteNotification(String id){
-    final deletedNotification = _repository.delete(id);
+  Future<AppNotification> deleteNotification(String id) async{
+    final deletedNotification = await _repository.delete(id);
 
     return deletedNotification;
   }

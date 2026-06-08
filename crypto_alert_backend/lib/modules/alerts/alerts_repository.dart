@@ -107,6 +107,10 @@ class AlertsRepository {
       },
     );
 
+    if(result.isEmpty){
+      throw Exception ('Alert [ID: $id] not found');
+    }
+
     return Alert.fromRow(result.first);
   } */
 
