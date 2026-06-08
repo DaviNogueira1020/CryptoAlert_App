@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/presentation/pages/index.dart';
+import 'package:mobile/presentation/pages/table_screen.dart';
 import 'package:mobile/presentation/widgets/header.dart';
 
 class Login extends StatefulWidget {
@@ -143,7 +144,7 @@ class LoginState extends State<Login> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Index(),
+            builder: (context) => TableScreen(),
           )
         );
       },
@@ -212,7 +213,7 @@ class LoginState extends State<Login> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Index(),
+                builder: (context) => TableScreen(),
               )
             );
           },

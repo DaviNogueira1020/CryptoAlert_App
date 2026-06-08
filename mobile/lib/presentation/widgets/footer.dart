@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/presentation/pages/login.dart';
 import 'package:mobile/presentation/pages/onboardingScreen.dart';
-import 'package:mobile/presentation/pages/table.dart';
+import 'package:mobile/presentation/pages/table_screen.dart';
 
 class Footer extends StatefulWidget {
   final Color backGround;
@@ -60,7 +60,7 @@ class _FooterState extends State<Footer> {
                         MaterialPageRoute(
                           builder: (context) => const OnboardingScreen(),
                         ));
-                    },
+                  },
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/Icons/notifications.svg',
@@ -84,7 +84,7 @@ class _FooterState extends State<Footer> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TableScreen(),
+                          builder: (context) => const TableScreen(),
                         ));
                   },
                   child: Center(
