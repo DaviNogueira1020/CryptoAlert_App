@@ -27,6 +27,8 @@ class AlertsCheckerService{
             
             print('[NOTIFICATION CREATED] ${notification.title}:\n'
                   '${notification.message})');
+
+            await _alertsService.deactivateAlert(alert.id); //TODO: Refactor and change this
           }
           break;
         case AlertType.below:
@@ -40,6 +42,8 @@ class AlertsCheckerService{
             
             print('[NOTIFICATION CREATED] ${notification.title}:\n'
                   '${notification.message}');
+
+            await _alertsService.deactivateAlert(alert.id); //TODO: Refactor and change this
           }
           break;
       }

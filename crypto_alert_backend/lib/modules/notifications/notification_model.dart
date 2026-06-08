@@ -17,17 +17,6 @@ class AppNotification{
     this.read = false,
   });
 
-  factory AppNotification.fromDatabase(Map<String, dynamic> row){
-    return AppNotification(
-      id: row['id'] as String,
-      alertId: row['alert_id'] as String,
-      title: row['title'] as String,
-      message: row['message'] as String,
-      read: row['read'] as bool,
-      createdAt: row['created_at'] as DateTime,
-    );
-  }
-
   factory AppNotification.fromRow(ResultRow row){
     return AppNotification(
       id: row[0]! as String,

@@ -1,3 +1,4 @@
+import 'package:crypto_alert_backend/core/exceptions/not_found_exception.dart';
 import 'package:crypto_alert_backend/modules/alerts/alert_type.dart';
 import 'package:crypto_alert_backend/core/database/database_connection.dart';
 import 'package:postgres/postgres.dart';
@@ -16,18 +17,6 @@ class Alert{
     required this.type, // 'above' or 'below'
     this.active = true,
   });
-
-  factory Alert.fromDatabase(Map<String, dynamic> row){
-    return Alert(
-      id: row['id'] as String,
-      symbol: row['symbol'] as String,
-      target: (row['target'] as num).toDouble(),
-      type: AlertTypeExtension.fromString(
-        row['type'] as String
-      ),
-      active: row['active'] as bool,
-    );
-  }
 
   factory Alert.fromRow(ResultRow row) {
     return Alert(
@@ -108,7 +97,7 @@ class AlertsRepository {
     );
 
     if(result.isEmpty){
-      throw Exception ('Alert [ID: $id] not found');
+      throw NotFoundException ('Alert [ID: $id] not found');
     }
 
     return Alert.fromRow(result.first);
@@ -172,7 +161,34 @@ class AlertsRepository {
     );
 
     if(result.isEmpty){
-      throw Exception('Alert [ID: $id] not found');
+      throw NotFoundException('Alert [ID: $id] not found');
+    }
+
+    return Alert.fromRow(result.first);
+  }
+
+  Future<Alert> deactivate(String id) async{
+    final connection = await DatabaseConnection.getConnection();
+
+    final result = await connection.execute(
+      Sql.named('''
+        UPDATE alerts
+        SET active = FALSE
+        WHERE id = @id
+        RETURNING
+          id,
+          symbol,
+          target,
+          type,
+          active
+      '''),
+      parameters:{
+        'id': id,
+      },
+    );
+
+    if(result.isEmpty){
+      throw NotFoundException('Alert [ID: $id] not found');
     }
 
     return Alert.fromRow(result.first);
@@ -210,7 +226,7 @@ class AlertsRepository {
     );
 
     if(result.isEmpty){
-      throw Exception('Alert [ID: $id] not found');
+      throw NotFoundException('Alert [ID: $id] not found');
     }
 
     return Alert.fromRow(result.first);
@@ -236,7 +252,7 @@ class AlertsRepository {
     );
 
     if(result.isEmpty){
-      throw Exception('Alert [ID: $id] not found');
+      throw NotFoundException('Alert [ID: $id] not found');
     }
 
     return Alert.fromRow(result.first);

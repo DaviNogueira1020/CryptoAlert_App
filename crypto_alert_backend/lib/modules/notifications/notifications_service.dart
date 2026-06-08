@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+import 'package:crypto_alert_backend/core/exceptions/validation_exception.dart';
 import 'package:crypto_alert_backend/modules/notifications/notification_model.dart';
 import 'package:crypto_alert_backend/modules/notifications/notifications_repository.dart';
 import 'dart:math';
@@ -11,18 +13,18 @@ class NotificationsService {
     required String message,
   }) async{
     if (alertId.isEmpty) {
-      throw Exception('Alert ID is required');
+      throw ValidationException('Alert ID is required');
     }
 
     if (title.isEmpty) {
-      throw Exception('Title is required');
+      throw ValidationException('Title is required');
     }
 
     if (message.isEmpty) {
-      throw Exception('Message is required');
+      throw ValidationException('Message is required');
     }
 
-    final id = Random().nextInt(100000).toString(); // MOCK
+    final id = const Uuid().v4();
 
     final notification = AppNotification(
       id: id,

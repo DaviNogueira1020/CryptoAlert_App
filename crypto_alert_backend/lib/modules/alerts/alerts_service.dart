@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+import 'package:crypto_alert_backend/core/exceptions/validation_exception.dart';
 import 'package:crypto_alert_backend/modules/alerts/alert_type.dart';
 import 'package:crypto_alert_backend/modules/alerts/alerts_repository.dart';
 import 'dart:math';
@@ -11,10 +13,14 @@ class AlertsService {
     required AlertType type,
   }) async{
     if(symbol.isEmpty){
-      throw Exception('Symbol is required');
+      throw ValidationException('Symbol is required');
     }
 
-    final id = Random().nextInt(100000).toString(); // MOCK
+    if(target <= 0){
+      throw ValidationException('Target must be greater than zero');
+    }
+
+    final id = const Uuid().v4();
 
     final alert = Alert(
       id: id,
@@ -40,6 +46,10 @@ class AlertsService {
     final toggledAlert = await _repository.toggleStatus(id);
   
     return toggledAlert;
+  }
+
+  Future<Alert> deactivateAlert(String id) async{
+    return await _repository.deactivate(id);
   }
 
   Future<Alert> updateAlert(

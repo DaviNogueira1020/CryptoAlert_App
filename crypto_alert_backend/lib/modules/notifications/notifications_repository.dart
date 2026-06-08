@@ -1,3 +1,4 @@
+import 'package:crypto_alert_backend/core/exceptions/not_found_exception.dart';
 import 'package:crypto_alert_backend/modules/notifications/notification_model.dart';
 import 'package:crypto_alert_backend/core/database/database_connection.dart';
 import 'package:postgres/postgres.dart';
@@ -123,7 +124,7 @@ class NotificationsRepository{
     ); 
 
     if(result.isEmpty){
-      throw Exception('Notification [ID: $id] not found');
+      throw NotFoundException('Notification [ID: $id] not found');
     }
 
     return AppNotification.fromRow(result.first);
@@ -150,7 +151,7 @@ class NotificationsRepository{
     );
     
     if(result.isEmpty){
-      throw Exception ('Notification [ID: $id] not found');
+      throw NotFoundException ('Notification [ID: $id] not found');
     }
 
     return AppNotification.fromRow(result.first);
