@@ -1,270 +1,266 @@
 # CryptoAlert Mobile Backend — Log de Desenvolvimento
 
-## Visão Geral do Projeto
+## Visão Geral
 
 Backend desenvolvido em Dart utilizando Dart Frog para gerenciamento de alertas de criptomoedas integrados à Binance API.
 
 ---
 
-# Objetivo do Backend
+# Objetivo
 
 O backend é responsável por:
 
-- Gerenciamento de usuários
-- Criação e gerenciamento de alertas
-- Monitoramento contínuo de criptomoedas
-- Processamento de notificações
-- Integração futura com Firebase Cloud Messaging
-- Persistência em PostgreSQL
+* Gerenciamento de usuários
+* Gerenciamento de alertas
+* Monitoramento de criptomoedas
+* Processamento de notificações
+* Integração com Firebase Cloud Messaging
+* Persistência em PostgreSQL
 
 ---
 
-# Stack Definida
+# Stack
 
-| Tecnologia | Finalidade |
-|---|---|
-| Dart | Linguagem backend |
-| Dart Frog | Framework HTTP |
-| Binance API | Fonte de dados de criptomoedas |
-| PostgreSQL | Banco de dados |
+| Tecnologia               | Finalidade         |
+| ------------------------ | ------------------ |
+| Dart                     | Linguagem backend  |
+| Dart Frog                | Framework HTTP     |
+| PostgreSQL               | Banco de dados     |
+| Binance API              | Dados de mercado   |
 | Firebase Cloud Messaging | Push notifications |
 
 ---
 
 # Arquitetura
 
-O backend segue uma arquitetura modular baseada em:
+O projeto segue arquitetura em camadas:
 
-- Routes
-- Services
-- Repositories
-- Scheduler
-- Clients
+* Routes
+* Services
+* Repositories
+* Clients
+* Scheduler
+* Middlewares
 
----
+## Responsabilidades
 
-# Responsabilidade das Camadas
-
-| Camada | Responsabilidade |
-|---|---|
-| Route | Comunicação HTTP |
-| Service | Regras de negócio |
-| Repository | Persistência |
-| Client | Integrações externas |
-
----
-
-# Estrutura Inicial
-
-```text
-lib/
-├── clients/
-├── config/
-├── core/
-├── docs/
-├── middlewares/
-├── modules/
-├── scheduler/
-└── utils/
-```
+| Camada     | Responsabilidade       |
+| ---------- | ---------------------- |
+| Route      | Comunicação HTTP       |
+| Service    | Regras de negócio      |
+| Repository | Persistência           |
+| Client     | APIs externas          |
+| Scheduler  | Processos periódicos   |
+| Middleware | Tratamento transversal |
 
 ---
 
-# Integração com Binance
+# Integração Binance
 
-## Arquivos implementados
+Arquivos:
 
-- `clients/binance_client.dart`
-- `modules/crypto/crypto_service.dart`
-- `routes/crypto/price.dart`
+* clients/binance_client.dart
+* modules/crypto/crypto_service.dart
+* routes/crypto/price.dart
 
----
+Funcionalidades:
 
-# Funcionalidades implementadas
-
-- Integração com API da Binance
-- Consulta de preços em tempo real
-- Endpoint `/crypto/price`
+* Consulta de preços em tempo real
+* Integração com Binance Spot API
+* Endpoint de consulta individual
 
 ---
 
 # Sistema de Alertas
 
-## Arquivos implementados
-
-- `alerts_repository.dart`
-- `alerts_service.dart`
-- `alerts_checker_service.dart`
-
----
-
-# Estrutura do alerta
+## Estrutura
 
 Campos:
-- id
-- symbol
-- target
-- type
-- active
+
+* id
+* symbol
+* target
+* type
+* active
+
+## CRUD Completo
+
+Endpoints:
+
+| Método | Endpoint                  |
+| ------ | ------------------------- |
+| POST   | /alerts/create            |
+| GET    | /alerts/list              |
+| GET    | /alerts/list_active       |
+| PUT    | /alerts/update/:id        |
+| PATCH  | /alerts/toggle_status/:id |
+| DELETE | /alerts/delete/:id        |
+
+## Melhorias Implementadas
+
+* Enum AlertType
+* copyWith
+* Atualização parcial via COALESCE
+* Desativação automática após disparo
+* Persistência PostgreSQL
 
 ---
 
-# Persistência Mock
+# Sistema de Notificações
 
-Implementada persistência temporária em memória utilizando:
+## Estrutura
 
-```dart
-List<Alert>
-```
+Campos:
 
-Objetivos:
-- acelerar desenvolvimento
-- desacoplar backend do banco real
+* id
+* alert_id
+* title
+* message
+* read
+* created_at
 
----
+## Endpoints
 
-# CRUD de Alertas
+| Método | Endpoint                  |
+| ------ | ------------------------- |
+| GET    | /notifications/list       |
+| GET    | /notifications/unread     |
+| PATCH  | /notifications/read/:id   |
+| DELETE | /notifications/delete/:id |
 
-## Endpoints implementados
+## Funcionalidades
 
-| Método | Endpoint |
-|---|---|
-| POST | `/alerts/create` |
-| GET | `/alerts/list` |
-| GET | `/alerts/list_active` |
-| PUT | `/alerts/update/:id` |
-| PATCH | `/alerts/toggle_status/:id` |
-| DELETE | `/alerts/delete/:id` |
-
----
-
-# Melhorias Arquiteturais
-
-## Padrão copyWith
-
-Implementado padrão de atualização imutável utilizando `copyWith`.
+* Listagem completa
+* Listagem de não lidas
+* Marcar como lida
+* Exclusão
+* Persistência PostgreSQL
 
 ---
 
-# Enum AlertType
+# PostgreSQL
 
-Substituição de strings mágicas:
+Migração concluída dos módulos:
 
-```text
-'above'
-'below'
-```
+* Alerts
+* Notifications
 
-por:
+Removido:
 
-```dart
-AlertType.above
-AlertType.below
-```
+* mock_database.dart
+* Persistência em memória
 
----
+Implementado:
 
-# Extensions em Dart
-
-Implementadas funções auxiliares para:
-- serialização
-- desserialização
-do enum `AlertType`.
+* DatabaseConnection
+* Queries parametrizadas
+* RETURNING
+* Conversão ResultRow → Model
 
 ---
 
 # Scheduler
 
-## Arquivo
+Arquivo:
 
-- `alerts_scheduler.dart`
+* alerts_scheduler.dart
 
----
+Responsabilidades:
 
-# Responsabilidades
-
-- verificar alertas ativos periodicamente
-- consultar preços na Binance
-- validar condições de disparo
-- registrar eventos de alerta
-
----
-
-# Condições implementadas
-
-- above
-- below
+* Buscar alertas ativos
+* Consultar Binance
+* Validar condições
+* Criar notificações
+* Desativar alertas disparados
 
 ---
 
-# Logging temporário
+# Tratamento Global de Erros
 
-Formato atual:
+Implementado middleware global.
 
-```text
-[ALERT TRIGGERED] BTCUSDT above 100000 (Current price: 102340.50)
-```
+## Exceptions customizadas
 
----
+* ValidationException
+* NotFoundException
+* ConflictException
 
-# Rotas RESTful
+## Mapeamento HTTP
 
-Implementadas rotas dinâmicas utilizando:
-
-```text
-[id].dart
-```
-
----
-
-# Refatorações e Correções
-
-## Padronização de nomenclatura
-
-Conversão de:
-- métodos
-- arquivos
-- rotas
-
-para:
-- inglês
-- snake_case
-
----
-
-# Estado Atual do Backend
-
-## Implementado
-
-- Infraestrutura base
-- Integração Binance
-- CRUD completo de alertas
-- Scheduler
-- Normalização via enum
-- Repository Pattern
-- Service Layer
-- Persistência mock
-- Rotas RESTful
-
----
-
-# Próximos Passos
-
-1. Módulo de notificações
-2. Módulo de autenticação
-3. Middleware JWT
-4. Integração PostgreSQL
-5. Firebase Cloud Messaging
-6. Logging estruturado
-7. Variáveis de ambiente
-8. Tratamento global de erros
+| Exception           | HTTP |
+| ------------------- | ---- |
+| ValidationException | 400  |
+| NotFoundException   | 404  |
+| ConflictException   | 409  |
+| Outros              | 500  |
 
 ---
 
 # Estado Atual
 
-✅ Backend funcional  
-✅ Scheduler em execução  
-✅ Endpoints funcionando  
-✅ CRUD completo  
-✅ Arquitetura modular consolidada
+## Concluído
+
+✅ Arquitetura modular
+
+✅ Integração Binance
+
+✅ CRUD completo de alertas
+
+✅ CRUD completo de notificações
+
+✅ Scheduler funcional
+
+✅ PostgreSQL integrado
+
+✅ Error Middleware
+
+✅ Exceptions customizadas
+
+✅ Repository Pattern
+
+✅ Service Layer
+
+✅ Rotas RESTful
+
+---
+
+# Próximas Entregas
+
+## Market Data
+
+* Cadastro de criptomoedas monitoradas
+* Histórico de preços
+* Cache local de mercado
+* Tickers para dashboard
+* Endpoint de mercado
+
+## Firebase
+
+* Integração FCM
+* Push notifications reais
+
+## Auth
+
+* Cadastro
+* Login
+* JWT
+* Middleware de autenticação
+
+## Infraestrutura
+
+* Variáveis de ambiente
+* Logs estruturados
+* Docker
+* Deploy
+
+---
+
+# Branch Atual
+
+feature/backend-alerts-notifications
+
+---
+
+# Próxima Branch
+
+feature/market-data
