@@ -17,6 +17,7 @@ class MainShell extends StatefulWidget {
   State<MainShell> createState() => _MainShellState();
 }
 
+// Mantem o estado da aba mesmo quando o usuário troca de tela.
 class _MainShellState extends State<MainShell> {
   late int _currentIndex;
 
@@ -36,7 +37,6 @@ class _MainShellState extends State<MainShell> {
           const TickerBar(),
 
           // IndexedStack mantém todas as telas carregadas ao mesmo tempo.
-          // Só exibe a tela do índice atual, mas as outras não são destruídas ao trocar de aba.
           Expanded(
             child: IndexedStack(
               index: _currentIndex,
@@ -48,7 +48,7 @@ class _MainShellState extends State<MainShell> {
               ],
             ),
           ),
-
+          // Footer recebe o índice atual para destacar a aba selecionada
           Footer(
             initialBottonClicked: _currentIndex,
             onTabSelected: (i) => setState(() => _currentIndex = i),

@@ -41,6 +41,7 @@ class AlertasService {
     );
   }
 
+// Adiciona um novo alerta à lista e salva a mudança
   static void adicionar(Alerta alerta) {
     alertas.add(alerta);
     _totalCriados++;
@@ -48,6 +49,7 @@ class AlertasService {
     _salvar();
   }
 
+// Remove um alerta da lista pelo índice e salva a mudança
   static void remover(int index) {
     if (index < 0 || index >= alertas.length) return;
     alertas.removeAt(index);

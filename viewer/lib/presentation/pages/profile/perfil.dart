@@ -36,12 +36,15 @@ class PerfilPage extends StatelessWidget {
 }
 
 class _PerfilPageState extends State<PerfilPageContent> {
+  // Controlador para o campo de usuário, com listener para salvar automaticamente a cada mudança
   final _usuarioController = TextEditingController();
   bool _notifApp = true;
   bool _notifEmail = true;
 
+// Chave usada para salvar o nome do usuário 
   static const _keyUsuario = 'perfil_usuario';
 
+// Ao iniciar, carrega o nome salvo e configura o listener para salvar a cada mudança
   @override
   void initState() {
     super.initState();
@@ -62,12 +65,14 @@ class _PerfilPageState extends State<PerfilPageContent> {
     await prefs.setString(_keyUsuario, _usuarioController.text);
   }
 
+//Atuiliza a tela quando as dependências mudam 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     setState(() {});
   }
 
+// Remove o listener e o controlador para evitar vazamento de memória
   @override
   void dispose() {
     _usuarioController.removeListener(_salvarUsuario);
@@ -124,6 +129,8 @@ class _PerfilPageState extends State<PerfilPageContent> {
                             style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
                           ),
                         ),
+
+                        // Campo de usuário, que salva automaticamente a cada mudança
                         const SizedBox(height: 24),
                         const Text('USUÁRIO', style: TextStyle(color: Colors.white54, fontSize: 11, letterSpacing: 1.5)),
                         const SizedBox(height: 8),
@@ -166,6 +173,7 @@ class _PerfilPageState extends State<PerfilPageContent> {
                     builder: (context, _, __) => Row(
                       children: [
                         Expanded(
+                          // Ao clicar leva para a aba de alertas
                           child: GestureDetector(
                             onTap: () => widget.onTabSelected?.call(0),
                             child: _StatCard(
@@ -217,6 +225,7 @@ class _PerfilPageState extends State<PerfilPageContent> {
                           ),
                         ),
                         const SizedBox(height: 16),
+                        
                         _NotifRow(
                           title: 'Notificação pelo aplicativo',
                           subtitle: 'Receba notificações sobre seus alertas',
@@ -270,6 +279,7 @@ class _PerfilPageState extends State<PerfilPageContent> {
                         Row(
                           children: [
                             Expanded(
+                              // Botão de documentação 
                               child: OutlinedButton(
                                 onPressed: () {},
                                 style: OutlinedButton.styleFrom(
@@ -283,6 +293,7 @@ class _PerfilPageState extends State<PerfilPageContent> {
                             ),
                             const SizedBox(width: 12),
                             Expanded(
+                              // Botão de suporte
                               child: OutlinedButton(
                                 onPressed: () {},
                                 style: OutlinedButton.styleFrom(
@@ -307,7 +318,7 @@ class _PerfilPageState extends State<PerfilPageContent> {
     );
   }
 }
-
+// Card  para exibir as estatísticas de alertas criados e ativos
 class _StatCard extends StatelessWidget {
   final String label;
   final String value;
@@ -344,6 +355,7 @@ class _StatCard extends StatelessWidget {
   }
 }
 
+// Widget que exibe cada linha de configuração de notificação como efeito visual do botão de ativar/desativar
 class _NotifRow extends StatelessWidget {
   final String title;
   final String subtitle;

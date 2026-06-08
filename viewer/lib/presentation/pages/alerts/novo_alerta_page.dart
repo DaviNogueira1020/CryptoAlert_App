@@ -12,13 +12,14 @@ class NovoAlertaPage extends StatefulWidget {
   @override
   State<NovoAlertaPage> createState() => _NovoAlertaPageState();
 }
-
+// Tela para criar um novo alerta
 class _NovoAlertaPageState extends State<NovoAlertaPage> {
   bool _condicaoCima = true;
   String _prioridade = 'Alta';
   String _tipoNotificacao = 'Sistema';
   String _repeticao = 'Diariamente';
 
+// Controladores para os campos de texto
   final _criptoController = TextEditingController();
   final _tipoAlertaController = TextEditingController();
   final _porcentualController = TextEditingController();
@@ -27,6 +28,7 @@ class _NovoAlertaPageState extends State<NovoAlertaPage> {
   final _dataController = TextEditingController();
   final _horaController = TextEditingController();
 
+// Verifica se os campos  estão preenchidos
   bool get _podeSalvar =>
       _criptoController.text.trim().isNotEmpty &&
       _porcentualController.text.trim().isNotEmpty;
@@ -37,7 +39,7 @@ class _NovoAlertaPageState extends State<NovoAlertaPage> {
     _criptoController.addListener(() => setState(() {}));
     _porcentualController.addListener(() => setState(() {}));
   }
-
+// Salva o alerta criado e volta para a tela anterior
   void _salvar() {
     if (_criptoController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -45,6 +47,7 @@ class _NovoAlertaPageState extends State<NovoAlertaPage> {
       );
       return;
     }
+    // Adiciona o novo alerta à lista de alertas
     AlertasService.adicionar(Alerta(
       cripto: _criptoController.text.trim(),
       tipoAlerta: _tipoAlertaController.text.trim(),
@@ -63,6 +66,7 @@ class _NovoAlertaPageState extends State<NovoAlertaPage> {
 
   @override
   void dispose() {
+    // Libera os controladores de texto para evitar vazamentos de memória
     _criptoController.dispose();
     _tipoAlertaController.dispose();
     _porcentualController.dispose();
@@ -94,7 +98,7 @@ class _NovoAlertaPageState extends State<NovoAlertaPage> {
       ),
     );
   }
-
+// Widget para exibir o título de cada seção do formulário
   Widget _sectionTitle(int number, String title) {
     return Row(
       children: [
@@ -120,7 +124,7 @@ class _NovoAlertaPageState extends State<NovoAlertaPage> {
       ],
     );
   }
-
+// Widget para exibir um campo de dropdown
   Widget _dropdownField(String label, String value, List<String> options, ValueChanged<String?> onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,6 +153,7 @@ class _NovoAlertaPageState extends State<NovoAlertaPage> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,6 +175,7 @@ class _NovoAlertaPageState extends State<NovoAlertaPage> {
                     border: Border.all(color: const Color(0xFF22D3EE).withOpacity(0.5)),
                   ),
                   child: SingleChildScrollView(
+                    // Formulário para criar um novo alerta
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,6 +195,7 @@ class _NovoAlertaPageState extends State<NovoAlertaPage> {
                       children: [
                         Expanded(
                           child: Column(
+                            // Campo para a criptomoeda do alerta
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               RichText(text: const TextSpan(children: [
@@ -207,6 +214,7 @@ class _NovoAlertaPageState extends State<NovoAlertaPage> {
                         const SizedBox(width: 12),
                         Expanded(
                           child: Column(
+                            // Campo para o tipo de alerta 
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text('Tipo de alerta', style: TextStyle(color: Colors.white54, fontSize: 12)),
@@ -389,6 +397,7 @@ class _NovoAlertaPageState extends State<NovoAlertaPage> {
                       children: [
                         Expanded(
                           child: OutlinedButton(
+                            // Botão para cancelar a criação do alerta e voltar para a tela anterior
                             onPressed: () => Navigator.pop(context, false),
                             style: OutlinedButton.styleFrom(
                               foregroundColor: Colors.white54,
@@ -403,6 +412,7 @@ class _NovoAlertaPageState extends State<NovoAlertaPage> {
                         const SizedBox(width: 12),
                         Expanded(
                           child: ElevatedButton(
+                            // Botão para salvar o alerta
                             onPressed: _podeSalvar ? _salvar : null,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF22D3EE),
@@ -432,7 +442,7 @@ class _NovoAlertaPageState extends State<NovoAlertaPage> {
     );
   }
 }
-
+// Formata a entrada do campo de percentual para garantir que seja um número entre 0 e 100 seguido de '%'
 class _PercentFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
@@ -447,7 +457,7 @@ class _PercentFormatter extends TextInputFormatter {
     );
   }
 }
-
+// Formata a entrada do campo de data para garantir que seja no formato 'DD/MM/YYYY' e que os valores sejam válidos
 class _DateFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {

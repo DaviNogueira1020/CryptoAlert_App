@@ -15,6 +15,7 @@ const _tickerItems = [
   ('ADA', r'$0,75', true, '0,50%'),
 ];
 
+// StatefulWidget porque precisa manter o estado do ScrollController e do Ticker para animar a barra de cotações. Ele constrói uma ListView horizontal que se move automaticamente usando o Ticker.
 class TickerBar extends StatefulWidget {
   const TickerBar({super.key});
 
@@ -22,6 +23,7 @@ class TickerBar extends StatefulWidget {
   State<TickerBar> createState() => _TickerBarState();
 }
 
+// Chama uma função a cada frame do app para atualizar a posição da barra de cotações. 
 class _TickerBarState extends State<TickerBar> with SingleTickerProviderStateMixin {
   late final ScrollController _scrollController;
   Ticker? _ticker;
@@ -54,7 +56,7 @@ class _TickerBarState extends State<TickerBar> with SingleTickerProviderStateMix
     });
     _ticker!.start();
   }
-
+// Ticker e o ScrollController são descartados quando o widget é destruído.
   @override
   void dispose() {
     _ticker?.dispose();

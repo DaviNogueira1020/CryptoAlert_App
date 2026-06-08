@@ -16,6 +16,7 @@ class AlertasPageContent extends StatefulWidget {
 class _AlertasPageContentState extends State<AlertasPageContent> {
   List<Alerta> get _alertas => AlertasService.alertas;
 
+// Função para confirmar a remoção de um alerta
   Future<void> _confirmarRemocao(int index) async {
     final confirmado = await showDialog<bool>(
       context: context,
@@ -38,6 +39,7 @@ class _AlertasPageContentState extends State<AlertasPageContent> {
               const SizedBox(height: 24),
               Row(
                 children: [
+                  // Botão "Cancelar"
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () => Navigator.pop(ctx, false),
@@ -51,6 +53,7 @@ class _AlertasPageContentState extends State<AlertasPageContent> {
                     ),
                   ),
                   const SizedBox(width: 12),
+                  // Botão "Deletar"
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () => Navigator.pop(ctx, true),
@@ -70,18 +73,19 @@ class _AlertasPageContentState extends State<AlertasPageContent> {
         ),
       ),
     );
+    // Se clicado em "deletar", o alerta é removido
     if (confirmado == true) {
       AlertasService.remover(index);
     }
   }
-
+// Abre a tela de novo alerta
   void _abrirNovoAlerta() async {
     await Navigator.push<bool>(
       context,
       MaterialPageRoute(builder: (_) => const NovoAlertaPage()),
     );
   }
-
+// Constroi a tela de alertas
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -122,7 +126,6 @@ class _AlertasPageContentState extends State<AlertasPageContent> {
           const Text('Gere seus alertas  de preço de\ncriptomoedas',
               style: TextStyle(color: Colors.white54, fontSize: 13)),
           const SizedBox(height: 24),
-          // ValueListenableBuilder escuta o "tick" do AlertasService.
           // Toda vez que um alerta é adicionado, removido ou alterado, essa parte se redesenha.
           ValueListenableBuilder<int>(
             valueListenable: AlertasService.tick,
@@ -138,6 +141,7 @@ class _AlertasPageContentState extends State<AlertasPageContent> {
     );
   }
 
+// Tela exibida quando não há alertas criados
   Widget _emptyState() {
     return Container(
       width: double.infinity,
@@ -160,7 +164,7 @@ class _AlertasPageContentState extends State<AlertasPageContent> {
       ),
     );
   }
-
+//lista de alertas criados
   Widget _listaAlertas() {
     return ListView.separated(
       itemCount: _alertas.length,
@@ -192,6 +196,7 @@ class _AlertasPageContentState extends State<AlertasPageContent> {
                 ),
               ),
               const SizedBox(width: 12),
+            //exibe as informações do alerta
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
