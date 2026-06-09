@@ -188,7 +188,7 @@ class ParticlePainter extends CustomPainter {
       );
 
       final smokePaint = Paint()
-        ..color = Colors.white.withOpacity(s.opacity) // Cor branca com opacidade dinâmica
+        ..color = const Color.fromARGB(255, 0, 204, 255).withOpacity(s.opacity) // Cor Ciano com opacidade dinâmica
         ..style = PaintingStyle.fill;
 
       canvas.drawCircle(
