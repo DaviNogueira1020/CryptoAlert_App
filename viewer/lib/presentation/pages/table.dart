@@ -1,9 +1,10 @@
-//Area onde tou fazendo testes por isso não estar no index() ainda
+// Area onde tou fazendo testes por isso não estar no index() ainda
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/presentation/widgets/header.dart';
 import 'package:mobile/presentation/widgets/footer.dart';
+import 'package:mobile/presentation/widgets/animated_background.dart'; // Import do AnimatedBackground
 
 class TableScreen extends StatefulWidget {
   final Color textColor;
@@ -195,17 +196,14 @@ class TableScreenState extends State<TableScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0B0F1A),
-      body: Column(
+    return AnimatedBackground(
+      child: Column(
         children: [
           const Header(),
-
           Expanded(
             child: buildTable(),
           ),
-
-          const Footer(initialBottonClicked: 1,),
+          const Footer(initialBottonClicked: 1),
         ],
       ),
     );

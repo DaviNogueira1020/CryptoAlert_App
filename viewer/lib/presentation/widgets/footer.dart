@@ -25,6 +25,7 @@ class Footer extends StatefulWidget {
     this.iconSize = 30,
     this.initialBottonClicked = 0,
   });
+
   @override
   State<Footer> createState() => _FooterState();
 }
@@ -55,10 +56,11 @@ class _FooterState extends State<Footer> {
                     setState(() => _selectedIndex = 0);
                     print('Notifications clicked');
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Login(selectedButton: 1,),
-                        ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Login(selectedButton: 1),
+                      ),
+                    );
                   },
                   child: Center(
                     child: SvgPicture.asset(
@@ -81,10 +83,11 @@ class _FooterState extends State<Footer> {
                     setState(() => _selectedIndex = 1);
                     print('Home clicked');
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TableScreen(),
-                        ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TableScreen(),
+                      ),
+                    );
                   },
                   child: Center(
                     child: SvgPicture.asset(
@@ -129,7 +132,7 @@ class _FooterState extends State<Footer> {
                     print('Profile clicked');
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const Login()),
+                      MaterialPageRoute(builder: (context) => Login()),
                     );
                   },
                   child: Center(
