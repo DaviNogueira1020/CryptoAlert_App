@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/presentation/pages/index.dart';
 import 'package:mobile/presentation/widgets/header.dart';
 import 'package:mobile/services/banco_de_dados.dart';
+import 'package:mobile/presentation/widgets/particle_background.dart';
 
 class Login extends StatefulWidget {
   final int selectedButton;
@@ -449,39 +450,61 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0B0F1A),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Header(background: Colors.transparent),
-            const SizedBox(height: 10),
-            Container(
-              width: 300,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: const Color(0xFF0F1B3D),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFF06B6D4), width: 2),
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: const Color(0xFF0B0F1A),
+    body: Stack(
+      children: [
+
+        // Background animado
+        const Positioned.fill(
+          child: ParticleBackground(),
+        ),
+
+        // Conteúdo da tela
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Header(
+                background: Colors.transparent,
               ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildTabButtons(),
-                    const SizedBox(height: 30),
-                    _selectedButtonIndex == 0 ? _buildContentLogin() : _buildContentRegister(),
-                  ],
+
+              const SizedBox(height: 10),
+
+              Container(
+                width: 300,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: const Color(0xCC0F1B3D),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: const Color(0xFF06B6D4),
+                    width: 2,
+                  ),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildTabButtons(),
+
+                      const SizedBox(height: 30),
+
+                      _selectedButtonIndex == 0
+                          ? _buildContentLogin()
+                          : _buildContentRegister(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      ],
+    ),
+  );
+}
 }

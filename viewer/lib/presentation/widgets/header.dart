@@ -8,26 +8,43 @@ class Header extends StatelessWidget {
 
   const Header({
     super.key,
-    this.background = const Color(0xFF0F172A),
-    this.logoSize = 51,
-    this.textSize = 32,
-    this.textColor = const Color(0xFF22D3EE),
-  }); 
+    this.background = Colors.transparent,
+    this.logoSize = 52,
+    this.textSize = 34,
+    this.textColor = const Color(0xFF67E8F9),
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height: 70,
       color: background,
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/Logo/CriptAlert.png', width: logoSize, height: logoSize),
-          const SizedBox(width: 10),
+          Image.asset(
+            'assets/Logo/CriptAlert.png',
+            width: logoSize,
+            height: logoSize,
+          ),
+          const SizedBox(width: 12),
           Text(
             'CriptAlert',
-            style: TextStyle(fontWeight: FontWeight.w600 ,fontSize: textSize, color: textColor),
+            style: TextStyle(
+              fontSize: textSize,
+              fontWeight: FontWeight.bold,
+              color: textColor,
+              shadows: const [
+                Shadow(
+                  color: Color(0xFF22D3EE),
+                  blurRadius: 5,
+                ),
+                Shadow(
+                  color: Color(0xFF22D3EE),
+                  blurRadius: 10,
+                ),
+              ],
+            ),
           ),
         ],
       ),
