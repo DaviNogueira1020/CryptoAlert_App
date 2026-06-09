@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobile/presentation/pages/index.dart';
+import 'package:mobile/presentation/widgets/animated_background.dart';
 import 'package:mobile/presentation/widgets/header.dart';
 import 'package:mobile/services/banco_de_dados.dart';
 
@@ -133,6 +134,7 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         Icon(Icons.check_circle, color: Color(0xFF10B981), size: 14),
                         SizedBox(width: 6),
@@ -154,9 +156,9 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: const Color(0xFF06B6D4), width: 1),
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                      children: [
                         Icon(Icons.copy, color: Colors.white, size: 16),
                         SizedBox(width: 8),
                         Text('COPIAR', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13, letterSpacing: 1)),
@@ -204,8 +206,8 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(color: const Color(0xFF7F1D1D), width: 1),
                   ),
-                  child: Column(
-                    children: const [
+                  child: const Column(
+                    children: [
                       Icon(Icons.warning_amber_rounded, color: Color(0xFFEF4444), size: 20),
                       SizedBox(height: 6),
                       Text(
@@ -289,15 +291,18 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SvgPicture.asset('assets/Icons/login.svg',
+                      SvgPicture.asset(
+                        'assets/Icons/login.svg',
                         colorFilter: ColorFilter.mode(
                           _selectedButtonIndex == 0 ? Colors.white : const Color(0xFF9CA3AF),
                           BlendMode.srcIn,
                         ),
-                        width: 17, height: 17,
+                        width: 17,
+                        height: 17,
                       ),
                       const SizedBox(width: 6),
-                      Text("Login",
+                      Text(
+                        "Login",
                         style: TextStyle(
                           color: _selectedButtonIndex == 0 ? Colors.white : const Color(0xFF9CA3AF),
                           fontWeight: FontWeight.bold,
@@ -322,15 +327,18 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SvgPicture.asset('assets/Icons/register.svg',
+                      SvgPicture.asset(
+                        'assets/Icons/register.svg',
                         colorFilter: ColorFilter.mode(
                           _selectedButtonIndex == 1 ? Colors.white : const Color(0xFF9CA3AF),
                           BlendMode.srcIn,
                         ),
-                        width: 17, height: 17,
+                        width: 17,
+                        height: 17,
                       ),
                       const SizedBox(width: 6),
-                      Text("Register",
+                      Text(
+                        "Register",
                         style: TextStyle(
                           color: _selectedButtonIndex == 1 ? Colors.white : const Color(0xFF9CA3AF),
                           fontWeight: FontWeight.bold,
@@ -378,14 +386,24 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Create account",
-                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Color(0xFF06B6D4))),
+                        const Text(
+                          "Create account",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: Color(0xFF06B6D4),
+                          ),
+                        ),
                         const SizedBox(width: 8),
                         AnimatedBuilder(
                           animation: _arrowAnimation,
                           builder: (context, child) => Transform.translate(
                             offset: Offset(_arrowAnimation.value, 0),
-                            child: const Icon(Icons.arrow_forward, color: Color(0xFF06B6D4), size: 20),
+                            child: const Icon(
+                              Icons.arrow_forward,
+                              color: Color(0xFF06B6D4),
+                              size: 20,
+                            ),
                           ),
                         ),
                       ],
@@ -402,8 +420,10 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Private key",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+        const Text(
+          "Private key",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+        ),
         const SizedBox(height: 8),
         TextField(
           controller: _keyController,
@@ -414,12 +434,18 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
             filled: true,
             fillColor: Colors.transparent,
             contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Color(0xFF06B6D4))),
-            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Color(0xFF06B6D4), width: 2)),
-            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Color(0xFF6366F1), width: 2)),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFF06B6D4)),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFF06B6D4), width: 2),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFF6366F1), width: 2),
+            ),
           ),
         ),
         if (_erro != null)
@@ -440,8 +466,14 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
             child: Center(
               child: _loading
                   ? const CircularProgressIndicator(color: Colors.white)
-                  : const Text("Enter",
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+                  : const Text(
+                      "Enter",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
             ),
           ),
         ),
@@ -451,35 +483,41 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0B0F1A),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Header(background: Colors.transparent),
-            const SizedBox(height: 10),
-            Container(
-              width: 300,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: const Color(0xFF0F1B3D),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFF06B6D4), width: 2),
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildTabButtons(),
-                    const SizedBox(height: 30),
-                    _selectedButtonIndex == 0 ? _buildContentLogin() : _buildContentRegister(),
-                  ],
+    return AnimatedBackground(
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Header(background: Colors.transparent),
+              const SizedBox(height: 10),
+              Container(
+                width: 300,
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: const Color(0xCC0F1B3D),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: const Color(0xFF06B6D4),
+                    width: 2,
+                  ),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildTabButtons(),
+                      const SizedBox(height: 30),
+                      _selectedButtonIndex == 0
+                          ? _buildContentLogin()
+                          : _buildContentRegister(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
