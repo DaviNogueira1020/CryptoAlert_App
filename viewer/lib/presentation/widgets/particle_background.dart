@@ -228,3 +228,4 @@ class ParticlePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
+// Fim do codigo de animação de partículas e fumaça
