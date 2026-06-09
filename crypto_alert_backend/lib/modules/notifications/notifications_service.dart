@@ -2,7 +2,6 @@ import 'package:uuid/uuid.dart';
 import 'package:crypto_alert_backend/core/exceptions/validation_exception.dart';
 import 'package:crypto_alert_backend/modules/notifications/notification_model.dart';
 import 'package:crypto_alert_backend/modules/notifications/notifications_repository.dart';
-import 'dart:math';
 
 class NotificationsService {
   final NotificationsRepository _repository = NotificationsRepository();

@@ -1,8 +1,8 @@
 import 'package:uuid/uuid.dart';
 import 'package:crypto_alert_backend/core/exceptions/validation_exception.dart';
 import 'package:crypto_alert_backend/modules/alerts/alert_type.dart';
+import 'package:crypto_alert_backend/modules/alerts/alert_model.dart';
 import 'package:crypto_alert_backend/modules/alerts/alerts_repository.dart';
-import 'dart:math';
 
 class AlertsService {
   final AlertsRepository _repository = AlertsRepository();
