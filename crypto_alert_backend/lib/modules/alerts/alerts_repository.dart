@@ -98,13 +98,13 @@ class AlertsRepository {
     return result.map(Alert.fromRow).toList();
   }
 
-  Future<Alert> toggleStatus(String id) async{
+  Future<Alert> activate(String id) async{
     final connection = await DatabaseConnection.getConnection();
 
     final result = await connection.execute(
       Sql.named('''
         UPDATE alerts
-        SET active = NOT active
+        SET active = TRUE
         WHERE id = @id
         RETURNING
           id,
@@ -113,7 +113,7 @@ class AlertsRepository {
           type,
           active
       '''),
-      parameters: {
+      parameters:{
         'id': id,
       },
     );

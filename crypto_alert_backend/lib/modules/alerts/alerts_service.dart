@@ -42,10 +42,8 @@ class AlertsService {
     return await _repository.findActive();
   }
 
-  Future<Alert> toggleAlertStatus(String id) async{
-    final toggledAlert = await _repository.toggleStatus(id);
-  
-    return toggledAlert;
+  Future<Alert> activateAlert(String id) async{
+    return await _repository.activate(id);
   }
 
   Future<Alert> deactivateAlert(String id) async{
