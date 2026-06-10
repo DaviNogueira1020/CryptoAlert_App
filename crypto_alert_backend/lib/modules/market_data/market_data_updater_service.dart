@@ -8,6 +8,8 @@ class MarketDataUpdaterService{
   Future<void> updateMarketSnapshots() async{
     final assets = await _marketDataService.getActiveAssets();
 
+    print('[MARKET DATA UPDATING] Starting...');
+
     for(final asset in assets){
       final price = await _cryptoService.getPrice(asset.symbol);
 
@@ -19,5 +21,7 @@ class MarketDataUpdaterService{
       print('[MARKET SNAPSHOT UPDATED] '
             '${asset.symbol}: \$${price.toStringAsFixed(2)}');
     }
+
+    print('[MARKET DATA UPDATING] All market snapshots were updated successfully');
   }
 }
