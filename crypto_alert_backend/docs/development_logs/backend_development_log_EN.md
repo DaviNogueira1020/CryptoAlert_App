@@ -253,12 +253,200 @@ Global middleware implemented.
 
 ---
 
-# Current Branch
+# Current State
 
-feature/backend-alerts-notifications
+✅ Functional backend  
+✅ Running scheduler  
+✅ Working endpoints  
+✅ Complete CRUD  
+✅ Modular architecture consolidated
 
 ---
 
-# Next Branch
+# Market Data Module
 
-feature/market-data
+## Goal
+
+Provide updated market information for asset monitoring and frontend visualization.
+
+---
+
+## Implemented Integrations
+
+### Binance API
+
+Provides:
+
+- current price
+- 24h change
+- 24h volume
+
+Files:
+
+- clients/binance_client.dart
+- modules/crypto/crypto_service.dart
+
+---
+
+### CoinGecko API
+
+Provides:
+
+- asset image
+- market cap
+- circulating supply
+- total supply
+- 7d change
+- 30d change
+
+Files:
+
+- clients/coingecko_client.dart
+- modules/market_data/coingecko_market_data.dart
+
+---
+
+## Database
+
+### crypto_assets
+
+Added fields:
+
+- image_url
+- coingecko_id
+
+---
+
+### market_snapshots
+
+Added fields:
+
+- change_7d
+- change_30d
+- market_cap
+- circulating_supply
+- total_supply
+
+---
+
+## Market Endpoints
+
+### GET /market/overview
+
+Returns:
+
+- symbol
+- name
+- image
+- price
+- volume
+- changes
+- market cap
+- supply
+- last update timestamp
+
+---
+
+### POST /market/refresh
+
+Manually refreshes all market snapshots.
+
+Flow:
+
+1. fetch assets
+2. query Binance
+3. query CoinGecko
+4. persist data
+5. return success
+
+---
+
+## Market Scheduler
+
+Implemented:
+
+- MarketDataUpdaterService
+
+Responsibilities:
+
+- Binance synchronization
+- CoinGecko synchronization
+- snapshot persistence
+
+---
+
+# Current Backend Status
+
+## Completed
+
+✅ Alert System
+
+✅ Notification System
+
+✅ PostgreSQL
+
+✅ Binance Integration
+
+✅ CoinGecko Integration
+
+✅ Market Snapshots
+
+✅ /market/overview endpoint
+
+✅ /market/refresh endpoint
+
+✅ Modular architecture consolidated
+
+---
+
+## Main Pending Tasks
+
+### Authentication
+
+Remaining work:
+
+- register
+- login
+- JWT
+- authentication middleware
+
+---
+
+### User Integration
+
+Need to associate:
+
+- users
+- alerts
+- notifications
+- preferences
+
+---
+
+### Firebase Cloud Messaging
+
+Required:
+
+- device token registration
+- push notification delivery
+- mobile integration
+
+---
+
+### Currency Conversion
+
+Planned:
+
+- USD → BRL
+- USD → EUR
+- user preferred currency
+
+---
+
+### User Preferences
+
+Planned:
+
+- favorite assets
+- default currency
+- notification customization
