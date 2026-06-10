@@ -196,6 +196,7 @@ class TableScreenState extends State<TableScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return buildTable();
     return AnimatedBackground(
       child: Column(
         children: [
@@ -209,3 +210,6 @@ class TableScreenState extends State<TableScreen> {
     );
   }
 }
+
+// alias para usar no shell e ajudar
+typedef TableContent = TableScreen;
