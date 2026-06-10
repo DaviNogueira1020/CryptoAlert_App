@@ -6,19 +6,19 @@ import 'package:mobile/presentation/widgets/header.dart';
 import 'package:mobile/presentation/widgets/footer.dart';
 import 'package:mobile/presentation/widgets/animated_background.dart'; // Import do AnimatedBackground
 
-class TableScreen extends StatefulWidget {
+class OldTableScreen extends StatefulWidget {
   final Color textColor;
 
-  const TableScreen({
+  const OldTableScreen({
     this.textColor = Colors.white,
     super.key,
   });
 
   @override
-  State<TableScreen> createState() => TableScreenState();
+  State<OldTableScreen> createState() => OldTableScreenState();
 }
 
-class TableScreenState extends State<TableScreen> {
+class OldTableScreenState extends State<OldTableScreen> {
   Widget buildCell(
     String text, {
     Widget? leading,
@@ -73,7 +73,6 @@ class TableScreenState extends State<TableScreen> {
     return TableRow(
       children: [
         buildCell(rank),
-
         buildCell(
           coin,
           leading: coinSvg == null
@@ -88,19 +87,13 @@ class TableScreenState extends State<TableScreen> {
                   height: 18,
                 ),
         ),
-
         buildCell(price),
-
         buildCell(
           change24h,
           leading: changeSvg == null
               ? Icon(
-                  isPositive
-                      ? Icons.arrow_upward
-                      : Icons.arrow_downward,
-                  color: isPositive
-                      ? Colors.green
-                      : Colors.red,
+                  isPositive ? Icons.arrow_upward : Icons.arrow_downward,
+                  color: isPositive ? Colors.green : Colors.red,
                   size: 18,
                 )
               : SvgPicture.asset(
@@ -108,15 +101,11 @@ class TableScreenState extends State<TableScreen> {
                   width: 18,
                   height: 18,
                   colorFilter: ColorFilter.mode(
-                    isPositive
-                        ? Colors.green
-                        : Colors.red,
+                    isPositive ? Colors.green : Colors.red,
                     BlendMode.srcIn,
                   ),
                 ),
-          color: isPositive
-              ? Colors.green
-              : Colors.red,
+          color: isPositive ? Colors.green : Colors.red,
         ),
       ],
     );
@@ -133,11 +122,9 @@ class TableScreenState extends State<TableScreen> {
               color: const Color(0xff22D3EE),
               width: 1,
             ),
-            defaultVerticalAlignment:
-                TableCellVerticalAlignment.middle,
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             children: [
               buildHeaderRow(),
-
               buildDataRow(
                 "1",
                 "Bitcoin",
@@ -145,7 +132,6 @@ class TableScreenState extends State<TableScreen> {
                 "+2.5%",
                 true,
               ),
-
               buildDataRow(
                 "2",
                 "Ethereum",
@@ -154,7 +140,6 @@ class TableScreenState extends State<TableScreen> {
                 true,
                 coinSvg: "assets/Icons/home.svg",
               ),
-
               buildDataRow(
                 "3",
                 "Solana",
@@ -162,7 +147,6 @@ class TableScreenState extends State<TableScreen> {
                 "-3.8%",
                 false,
               ),
-
               buildDataRow(
                 "4",
                 "Cardano",
@@ -171,7 +155,6 @@ class TableScreenState extends State<TableScreen> {
                 true,
                 changeSvg: "assets/Icons/turnSignalTrue.svg",
               ),
-
               buildDataRow(
                 "5",
                 "XRP",
@@ -179,7 +162,6 @@ class TableScreenState extends State<TableScreen> {
                 "-1.1%",
                 false,
               ),
-
               buildDataRow(
                 "6",
                 "Dogecoin",
@@ -212,4 +194,4 @@ class TableScreenState extends State<TableScreen> {
 }
 
 // alias para usar no shell e ajudar
-typedef TableContent = TableScreen;
+typedef TableContent = OldTableScreen;
