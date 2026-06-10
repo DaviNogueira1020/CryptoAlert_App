@@ -11,7 +11,7 @@ class MarketDataUpdaterService{
     for(final asset in assets){
       final price = await _cryptoService.getPrice(asset.symbol);
 
-      await _marketDataService.saveSnapshot(
+      await _marketDataService.saveSnapshot( //TODO: Include 'change24h' and 'volume24h'
         symbol: asset.symbol,
         priceUsd: price,
       );
