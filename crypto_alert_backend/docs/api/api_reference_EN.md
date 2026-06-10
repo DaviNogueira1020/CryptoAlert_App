@@ -2,12 +2,14 @@
 
 ## Overview
 
-Backend API responsible for:
+API responsible for:
 
 * Alert Management
 * Notification Management
-* Market Data
+* Market Data Retrieval
 * Cryptocurrency Monitoring
+* Binance Integration
+* CoinGecko Integration
 
 Base URL:
 
@@ -47,11 +49,37 @@ http://localhost:8080
 }
 ```
 
+### Response
+
+```json
+{
+  "id": "uuid",
+  "symbol": "BTCUSDT",
+  "target": 100000,
+  "type": "above",
+  "active": true
+}
+```
+
 ---
 
 ## List Alerts
 
 ### GET /alerts/list
+
+### Response
+
+```json
+[
+  {
+    "id": "uuid",
+    "symbol": "BTCUSDT",
+    "target": 100000,
+    "type": "above",
+    "active": true
+  }
+]
+```
 
 ---
 
@@ -64,6 +92,16 @@ http://localhost:8080
 ## Update Alert
 
 ### PUT /alerts/update/:id
+
+### Body
+
+```json
+{
+  "symbol": "ETHUSDT",
+  "target": 5000,
+  "type": "above"
+}
+```
 
 ---
 
@@ -99,7 +137,7 @@ http://localhost:8080
 
 ---
 
-## Mark As Read
+## Mark as Read
 
 ### PATCH /notifications/read/:id
 
@@ -131,6 +169,15 @@ http://localhost:8080
 
 ### GET /crypto/price?symbol=BTCUSDT
 
+### Response
+
+```json
+{
+  "symbol": "BTCUSDT",
+  "price": 61318.05
+}
+```
+
 ---
 
 # Market Data
@@ -149,7 +196,12 @@ http://localhost:8080
     "image_url": "https://...",
     "price_usd": 61318.05,
     "change_24h": 2.37,
+    "change_7d": 4.12,
+    "change_30d": 15.84,
     "volume_24h": 1250000000.0,
+    "market_cap": 1200000000000.0,
+    "circulating_supply": 19800000,
+    "total_supply": 21000000,
     "updated_at": "2026-06-10T03:10:28.501019Z"
   }
 ]
@@ -157,19 +209,24 @@ http://localhost:8080
 
 ### Fields
 
-| Field      | Description           |
-| ---------- | --------------------- |
-| symbol     | Binance symbol        |
-| name       | Asset name            |
-| image_url  | Asset image           |
-| price_usd  | Current USD price     |
-| change_24h | 24h percentage change |
-| volume_24h | 24h traded volume     |
-| updated_at | Last update timestamp |
+| Field              | Description               |
+| ------------------ | ------------------------- |
+| symbol             | Binance trading symbol    |
+| name               | Asset name                |
+| image_url          | Asset image URL           |
+| price_usd          | Current USD price         |
+| change_24h         | 24-hour percentage change |
+| change_7d          | 7-day percentage change   |
+| change_30d         | 30-day percentage change  |
+| volume_24h         | 24-hour trading volume    |
+| market_cap         | Market capitalization     |
+| circulating_supply | Circulating supply        |
+| total_supply       | Total supply              |
+| updated_at         | Last update timestamp     |
 
 ---
 
-## Manual Refresh
+## Manual Market Refresh
 
 ### POST /market/refresh
 
@@ -183,38 +240,122 @@ http://localhost:8080
 
 ---
 
-# Planned Fields
+# Data Sources
 
-Not implemented yet:
+## Binance
 
-* change_7d
-* change_30d
-* market_cap
-* circulating_supply
-* total_supply
+Provides:
+
+* Current price
+* 24h price change
+* 24h volume
+
+## CoinGecko
+
+Provides:
+
+* Market capitalization
+* Circulating supply
+* Total supply
+* 7-day price change
+* 30-day price change
+* Asset images
+
+---
+
+# Known Limitations
+
+## CoinGecko Rate Limit
+
+The public CoinGecko API has request limits.
+
+When rate limiting occurs (HTTP 429):
+
+* prices continue updating normally through Binance;
+* advanced market metrics may temporarily remain outdated.
+
+The system handles this scenario automatically.
+
+---
+
+# Planned Features
+
+## Market
+
 * USD → BRL conversion
 * USD → EUR conversion
-* User currency preference
+* USD → GBP conversion
+* User currency preferences
+
+## Users
+
+* Full User → Alerts integration
+* Full User → Notifications integration
+
+## Security
+
+* JWT Authentication
+* Authentication Middleware
+* User-based access control
+
+## Push Notifications
+
+* Firebase Cloud Messaging
+* Device Token Registration
+* Real-time push delivery
 
 ---
 
 # Current Status
 
-## Available for Frontend Integration
+## Available for Frontend Consumption
 
-* Alerts
-* Notifications
-* Authentication
-* Market Overview
-* Manual Market Refresh
+✅ Price lookup
+
+✅ Alert CRUD
+
+✅ Monitoring scheduler
+
+✅ Notification CRUD
+
+✅ Market overview endpoint
+
+✅ Manual market refresh
+
+✅ Market capitalization
+
+✅ Circulating supply
+
+✅ Total supply
+
+✅ 7-day change
+
+✅ 30-day change
+
+✅ Asset images
+
+---
 
 ## Under Development
 
-* Advanced market metrics
-* Firebase Cloud Messaging
-* User integration
-* User preferences
-* Currency conversion
+🚧 Complete authentication
 
-```
-```
+🚧 User → Alerts relationship
+
+🚧 User → Notifications relationship
+
+🚧 Firebase Cloud Messaging
+
+🚧 Currency preferences
+
+🚧 Currency conversion
+
+🚧 Production deployment
+
+---
+
+# Version
+
+API Version: v1
+
+Last documentation update: June 2026

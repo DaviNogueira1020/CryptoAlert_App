@@ -37,6 +37,10 @@ class MarketDataUpdaterService{
 
             marketData = null;
           }
+
+          await Future.delayed( //TODO(refactor): This is a gambiarra to keep gecko working, as it hits
+            const Duration(seconds: 3),// the requisition limit when there's not a delay
+          );
         }
 
         await _marketDataService.saveSnapshot(

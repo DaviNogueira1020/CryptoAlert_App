@@ -8,6 +8,8 @@ API responsável por:
 * Gerenciamento de Notificações
 * Consulta de Dados de Mercado
 * Monitoramento de Criptomoedas
+* Integração Binance
+* Integração CoinGecko
 
 Base URL:
 
@@ -194,7 +196,12 @@ http://localhost:8080
     "image_url": "https://...",
     "price_usd": 61318.05,
     "change_24h": 2.37,
+    "change_7d": 4.12,
+    "change_30d": 15.84,
     "volume_24h": 1250000000.0,
+    "market_cap": 1200000000000.0,
+    "circulating_supply": 19800000,
+    "total_supply": 21000000,
     "updated_at": "2026-06-10T03:10:28.501019Z"
   }
 ]
@@ -202,15 +209,20 @@ http://localhost:8080
 
 ### Campos
 
-| Campo      | Descrição                  |
-| ---------- | -------------------------- |
-| symbol     | Símbolo Binance            |
-| name       | Nome da criptomoeda        |
-| image_url  | URL da imagem              |
-| price_usd  | Preço atual em USD         |
-| change_24h | Variação percentual em 24h |
-| volume_24h | Volume negociado em 24h    |
-| updated_at | Última atualização         |
+| Campo              | Descrição                      |
+| ------------------ | ------------------------------ |
+| symbol             | Símbolo Binance                |
+| name               | Nome da criptomoeda            |
+| image_url          | URL da imagem                  |
+| price_usd          | Preço atual em USD             |
+| change_24h         | Variação percentual em 24h     |
+| change_7d          | Variação percentual em 7 dias  |
+| change_30d         | Variação percentual em 30 dias |
+| volume_24h         | Volume negociado em 24h        |
+| market_cap         | Capitalização de mercado       |
+| circulating_supply | Oferta circulante              |
+| total_supply       | Oferta total                   |
+| updated_at         | Última atualização             |
 
 ---
 
@@ -228,18 +240,69 @@ http://localhost:8080
 
 ---
 
-# Campos Planejados
+# Fontes de Dados
 
-Ainda não implementados:
+## Binance
 
-* change_7d
-* change_30d
-* market_cap
-* circulating_supply
-* total_supply
+Responsável por:
+
+* Preço atual
+* Variação 24h
+* Volume 24h
+
+## CoinGecko
+
+Responsável por:
+
+* Capitalização de mercado
+* Oferta circulante
+* Oferta total
+* Variação 7 dias
+* Variação 30 dias
+* Imagens dos ativos
+
+---
+
+# Limitações Conhecidas
+
+## CoinGecko Rate Limit
+
+A API pública da CoinGecko possui limitação de requisições.
+
+Em situações de rate limit (HTTP 429):
+
+* os preços continuam sendo atualizados normalmente via Binance;
+* métricas avançadas podem permanecer temporariamente desatualizadas.
+
+O sistema trata esse cenário automaticamente.
+
+---
+
+# Funcionalidades Planejadas
+
+## Mercado
+
 * Conversão USD → BRL
 * Conversão USD → EUR
-* Preferência de moeda do usuário
+* Conversão USD → GBP
+* Preferência de moeda por usuário
+
+## Usuários
+
+* Integração completa entre usuários e alertas
+* Integração completa entre usuários e notificações
+
+## Segurança
+
+* JWT Authentication
+* Middleware de autenticação
+* Controle de acesso por usuário
+
+## Push Notifications
+
+* Firebase Cloud Messaging
+* Registro de Device Tokens
+* Entrega de notificações em tempo real
 
 ---
 
@@ -247,19 +310,52 @@ Ainda não implementados:
 
 ## Disponível para consumo pelo Frontend
 
-* Alertas
-* Notificações
-* Autenticação
-* Market Overview
-* Refresh manual de mercado
+✅ Consulta de preços
+
+✅ CRUD de alertas
+
+✅ Scheduler de monitoramento
+
+✅ CRUD de notificações
+
+✅ Endpoint de mercado
+
+✅ Atualização manual de mercado
+
+✅ Capitalização de mercado
+
+✅ Oferta circulante
+
+✅ Oferta total
+
+✅ Variação 7 dias
+
+✅ Variação 30 dias
+
+✅ Imagens dos ativos
+
+---
 
 ## Em desenvolvimento
 
-* Métricas avançadas de mercado
-* Firebase Cloud Messaging
-* Integração completa de usuários
-* Preferências personalizadas
-* Conversor de moedas
+🚧 Autenticação completa
 
-```
-```
+🚧 Relacionamento User → Alerts
+
+🚧 Relacionamento User → Notifications
+
+🚧 Firebase Cloud Messaging
+
+🚧 Preferências de moeda
+
+🚧 Conversor de moedas
+
+🚧 Deploy de produção
+
+---
+
+# Versão
+
+API Version: v1
+
+Última atualização da documentação: Junho/2026

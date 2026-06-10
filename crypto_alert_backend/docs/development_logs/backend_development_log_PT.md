@@ -268,3 +268,195 @@ para:
 ✅ Endpoints funcionando  
 ✅ CRUD completo  
 ✅ Arquitetura modular consolidada
+
+---
+
+# Módulo de Dados de Mercado
+
+## Objetivo
+
+Disponibilizar ao aplicativo informações de mercado atualizadas para exibição de preços, métricas e monitoramento dos ativos cadastrados.
+
+---
+
+## Integrações Implementadas
+
+### Binance API
+
+Responsável por fornecer:
+
+- preço atual
+- variação de 24 horas
+- volume negociado em 24 horas
+
+Arquivos:
+
+- clients/binance_client.dart
+- modules/crypto/crypto_service.dart
+
+---
+
+### CoinGecko API
+
+Responsável por fornecer:
+
+- imagem do ativo
+- market cap
+- circulating supply
+- total supply
+- variação de 7 dias
+- variação de 30 dias
+
+Arquivos:
+
+- clients/coingecko_client.dart
+- modules/market_data/coingecko_market_data.dart
+
+---
+
+## Banco de Dados
+
+Tabela:
+
+### crypto_assets
+
+Campos adicionados:
+
+- image_url
+- coingecko_id
+
+---
+
+### market_snapshots
+
+Campos adicionados:
+
+- change_7d
+- change_30d
+- market_cap
+- circulating_supply
+- total_supply
+
+---
+
+## Endpoint de Mercado
+
+### GET /market/overview
+
+Retorna:
+
+- símbolo
+- nome
+- imagem
+- preço
+- volume
+- variações
+- market cap
+- supply
+- timestamp da última atualização
+
+---
+
+### POST /market/refresh
+
+Atualiza manualmente todos os snapshots de mercado.
+
+Fluxo:
+
+1. consulta ativos cadastrados
+2. consulta Binance
+3. consulta CoinGecko
+4. atualiza banco
+5. retorna sucesso
+
+---
+
+## Scheduler de Mercado
+
+Implementado serviço de atualização automática:
+
+- MarketDataUpdaterService
+
+Responsável por:
+
+- sincronizar Binance
+- sincronizar CoinGecko
+- persistir snapshots
+
+---
+
+# Estado Atual do Backend
+
+## Implementado
+
+✅ Sistema de Alertas
+
+✅ Sistema de Notificações
+
+✅ PostgreSQL
+
+✅ Integração Binance
+
+✅ Integração CoinGecko
+
+✅ Snapshot de Mercado
+
+✅ Endpoint /market/overview
+
+✅ Endpoint /market/refresh
+
+✅ Arquitetura modular consolidada
+
+---
+
+## Pendências Principais
+
+### Autenticação
+
+Necessário concluir:
+
+- registro
+- login
+- JWT
+- middleware de autenticação
+
+---
+
+### Integração Usuário ↔ Alertas
+
+Relacionar:
+
+- usuários
+- alertas
+- notificações
+- preferências
+
+---
+
+### Firebase Cloud Messaging
+
+Necessário:
+
+- registrar tokens
+- enviar push notifications
+- integração completa com dispositivos móveis
+
+---
+
+### Conversor de Moedas
+
+Planejado:
+
+- USD → BRL
+- USD → EUR
+- Preferência de moeda do usuário
+
+---
+
+### Preferências do Usuário
+
+Planejado:
+
+- moedas favoritas
+- moeda padrão
+- personalização de notificações
