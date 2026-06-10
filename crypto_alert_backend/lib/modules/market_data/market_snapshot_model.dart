@@ -1,11 +1,5 @@
 import 'package:postgres/postgres.dart';
-
-// TODO(refactor):
-// Move parseNullableDouble to utils/parsers.dart
-double? _parseDouble(dynamic value) {
-  if (value == null) return null;
-  return double.parse(value.toString());
-}
+import 'package:crypto_alert_backend/utils/number_parser.dart';
 
 class MarketSnapshot{
   final String symbol;
@@ -25,11 +19,11 @@ class MarketSnapshot{
   factory MarketSnapshot.fromRow(ResultRow row){
     return MarketSnapshot(
       symbol: row[0]! as String,
-      priceUsd: _parseDouble(row[1])!,
+      priceUsd: parseDouble(row[1])!,
       change24h: row[2] != null ?
-                _parseDouble(row[2]) : null,
+                parseDouble(row[2]) : null,
       volume24h: row[3] != null ?
-                _parseDouble(row[3]) : null,
+                parseDouble(row[3]) : null,
       updatedAt: row[4]! as DateTime,
     );
   }
