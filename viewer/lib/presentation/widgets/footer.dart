@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobile/presentation/pages/login.dart';
-import 'package:mobile/presentation/pages/onboardingScreen.dart';
-import 'package:mobile/presentation/pages/table.dart';
-import 'package:mobile/presentation/pages/table_screen.dart';
 
 // Barra de navegação inferior com ícones para cada aba. Destaca a aba selecionada.
 class Footer extends StatefulWidget {
@@ -77,12 +73,6 @@ class _FooterState extends State<Footer> {
                   onTap: () {
                     _onTap(0);
                     print('Notifications clicked');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Login(selectedButton: 1),
-                      ),
-                    );
                   },
                   child: Center(
                     child: SvgPicture.asset(
@@ -104,12 +94,6 @@ class _FooterState extends State<Footer> {
                   onTap: () {
                     _onTap(1);
                     print('Home clicked');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TableScreen(),
-                      ),
-                    );
                   },
                   child: Center(
                     child: SvgPicture.asset(
@@ -131,12 +115,6 @@ class _FooterState extends State<Footer> {
                   onTap: () {
                     _onTap(2);
                     print('News clicked');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OnboardingScreen(),
-                      ),
-                    );
                   },
                   child: Center(
                     child: SvgPicture.asset(
@@ -158,10 +136,6 @@ class _FooterState extends State<Footer> {
                   onTap: () {
                     _onTap(3);
                     print('Profile clicked');
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Login()),
-                    );
                   },
                   child: Center(
                     child: SvgPicture.asset(

@@ -2,11 +2,11 @@
 // Só o conteúdo do meio muda quando o usuário troca de aba.
 
 import 'package:flutter/material.dart';
+import 'package:mobile/presentation/pages/table_screen.dart';
 import 'package:mobile/presentation/widgets/header.dart';
 import 'package:mobile/presentation/widgets/ticker_bar.dart';
 import 'package:mobile/presentation/widgets/footer.dart';
 import 'package:mobile/presentation/pages/alerts/alertas_page.dart';
-import 'package:mobile/presentation/pages/table.dart';
 import 'package:mobile/presentation/pages/profile/perfil.dart';
 
 class MainShell extends StatefulWidget {
@@ -42,9 +42,12 @@ class _MainShellState extends State<MainShell> {
               index: _currentIndex,
               children: [
                 const AlertasPageContent(),   // Aba 0
-                const TableContent(),          // Aba 1
-                const _NewsPlaceholder(),      // Aba 2
-                PerfilPageContent(onTabSelected: (i) => setState(() => _currentIndex = i)),
+                const TableScreen(),          // new Aba 1
+                const _NewsPlaceholder(),     // Aba 2
+                
+                Center(
+                  child: PerfilPageContent(onTabSelected: (i) => setState(() => _currentIndex = i)),
+                ),
               ],
             ),
           ),

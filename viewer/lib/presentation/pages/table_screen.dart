@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/presentation/widgets/header.dart';
-import 'package:mobile/presentation/widgets/footer.dart';
 import 'package:mobile/presentation/widgets/coin_detail_screen.dart';
 
 class CoinData {
@@ -340,14 +338,13 @@ class TableScreenState extends State<TableScreen> {
     );
   }
 
+  // table_screen.dart — troca o build()
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0B0F1A),
-      body: Column(
+    return Container(  // era Scaffold
+      color: const Color(0xFF0B0F1A),
+      child: Column(
         children: [
-          const Header(),
-          
           Expanded(
             child: SingleChildScrollView(
               child: _selectedCoin != null
@@ -370,8 +367,6 @@ class TableScreenState extends State<TableScreen> {
                     ),
             ),
           ),
-          
-          const Footer(initialBottonClicked: 1),
         ],
       ),
     );
