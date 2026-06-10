@@ -21,9 +21,18 @@ class MarketDataService{
 
   Future<MarketSnapshot> saveSnapshot({
     required String symbol,
+
     required double priceUsd,
+
     double? change24h,
+    double? change7d,
+    double? change30d,
+
     double? volume24h,
+
+    double? marketCap,
+    double? circulatingSupply,
+    double? totalSupply,
   }) async{
     if(symbol.isEmpty){
       throw ValidationException('Symbol is required');
@@ -35,9 +44,19 @@ class MarketDataService{
 
     final snapshot = MarketSnapshot(
       symbol: symbol,
+      
       priceUsd: priceUsd,
+
       change24h: change24h,
+      change7d: change7d,
+      change30d: change30d,
+      
       volume24h: volume24h,
+      
+      marketCap: marketCap,
+      circulatingSupply: circulatingSupply,
+      totalSupply: totalSupply,
+      
       updatedAt: DateTime.now() //Temporary
     );
 

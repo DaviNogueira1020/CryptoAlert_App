@@ -23,6 +23,8 @@ class CoinGeckoClient {
 
     final data = jsonDecode(response.body) as List<dynamic>;
 
+    print('[COINGECKO] $coinId -> $data');
+
     if (data.isEmpty){
       return null;
     }

@@ -14,7 +14,8 @@ class MarketDataRepository{
         symbol,
         name,
         active,
-        image_url
+        image_url,
+        coingecko_id
       FROM crypto_assets
       WHERE active = TRUE
       ORDER BY symbol
@@ -24,7 +25,7 @@ class MarketDataRepository{
     return result.map(CryptoAsset.fromRow).toList();
   }
 
-  Future<List<MarketOverview>> findOverview() async {
+  Future<List<MarketOverview>> findOverview() async { //TODO: change it to display all info after working on MarketOverview
     final connection = await DatabaseConnection.getConnection();
 
     final result = await connection.execute(
@@ -35,7 +36,12 @@ class MarketDataRepository{
         a.image_url,
         s.price_usd,
         s.change_24h,
+        s.change_7d,
+        s.change_30d,
         s.volume_24h,
+        s.market_cap,
+        s.circulating_supply,
+        s.total_supply,
         s.updated_at
       FROM crypto_assets a
       JOIN market_snapshots s
@@ -57,7 +63,12 @@ class MarketDataRepository{
         symbol,
         price_usd,
         change_24h,
+        change_7d,
+        change_30d,
         volume_24h,
+        market_cap,
+        circulating_supply,
+        total_supply,
         updated_at
       FROM market_snapshots
       ORDER BY symbol
@@ -76,26 +87,50 @@ class MarketDataRepository{
           symbol,
           price_usd,
           change_24h,
-          volume_24h
+          change_7d,
+          change_30d,
+          volume_24h,
+          market_cap,
+          circulating_supply,
+          total_supply
         )
         VALUES(
           @symbol,
           @price_usd,
           @change_24h,
-          @volume_24h
+          @change_7d,
+          @change_30d,
+          @volume_24h,
+          @market_cap,
+          @circulating_supply,
+          @total_supply
         )
         ON CONFLICT(symbol)
         DO UPDATE SET
           price_usd = EXCLUDED.price_usd,
           change_24h = EXCLUDED.change_24h,
+          change_7d = EXCLUDED.change_7d,
+          change_30d = EXCLUDED.change_30d,
           volume_24h = EXCLUDED.volume_24h,
+          market_cap = EXCLUDED.market_cap,
+          circulating_supply = EXCLUDED.circulating_supply,
+          total_supply = EXCLUDED.total_supply,
           updated_at = CURRENT_TIMESTAMP
       '''),
       parameters: {
         'symbol': snapshot.symbol,
+
         'price_usd': snapshot.priceUsd,
+        
         'change_24h': snapshot.change24h,
+        'change_7d': snapshot.change7d,
+        'change_30d': snapshot.change30d,
+        
         'volume_24h': snapshot.volume24h,
+
+        'market_cap': snapshot.marketCap,
+        'circulating_supply': snapshot.circulatingSupply,
+        'total_supply': snapshot.totalSupply,
       },
     );
   }

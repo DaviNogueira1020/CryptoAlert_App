@@ -30,14 +30,14 @@ CREATE TABLE market_snapshots(
 -- ==========================================
 -- DEFAULT ASSETS
 -- ==========================================
-
+-- TODO: Change this hardcoded method
 INSERT INTO crypto_assets(
     symbol,
     name,
     coingecko_id
 )
 VALUES
-    ('BTCUSDT', 'Bitcoin', 'bitcoin'),
+    ('BTCUSDT', 'Bitcoin', 'bitcoin'), 
     ('ETHUSDT', 'Ethereum', 'ethereum'),
     ('SOLUSDT', 'Solana', 'solana'),
     ('BNBUSDT', 'BNB', 'binancecoin'),
