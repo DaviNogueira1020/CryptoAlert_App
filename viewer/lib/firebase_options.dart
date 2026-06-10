@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,20 +25,11 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return linux;
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -51,12 +39,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDVn1UoM1-UbN1CYwfb6v2ee8jEILCR3p8',
-    appId: '1:845758125310:android:fe3ca39f9e397713e781af',
+    appId: '1:845758125310:android:5337b774cfaaa8a7e781af',
     messagingSenderId: '845758125310',
     projectId: 'criptalert-187b3',
     storageBucket: 'criptalert-187b3.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDaR58Yfj1FIwR8yOgRHX2rxTgD1SRjj0o',
     appId: '1:845758125310:ios:2022885acff731eee781af',
@@ -65,4 +52,42 @@ class DefaultFirebaseOptions {
     storageBucket: 'criptalert-187b3.firebasestorage.app',
     iosBundleId: 'com.example.mobile',
   );
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyALCgErhbzvxeIlMpYt2M6wEeqVizWPl9k',
+    appId: '1:845758125310:web:3c7da67f80db5bd2e781af',
+    messagingSenderId: '845758125310',
+    projectId: 'criptalert-187b3',
+    authDomain: 'criptalert-187b3.firebaseapp.com',
+    storageBucket: 'criptalert-187b3.firebasestorage.app',
+    measurementId: 'G-FLDWEKK161',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDaR58Yfj1FIwR8yOgRHX2rxTgD1SRjj0o',
+    appId: '1:845758125310:ios:2022885acff731eee781af',
+    messagingSenderId: '845758125310',
+    projectId: 'criptalert-187b3',
+    storageBucket: 'criptalert-187b3.firebasestorage.app',
+    iosBundleId: 'com.example.mobile',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyALCgErhbzvxeIlMpYt2M6wEeqVizWPl9k',
+    appId: '1:845758125310:web:09aefbaf5580599de781af',
+    messagingSenderId: '845758125310',
+    projectId: 'criptalert-187b3',
+    authDomain: 'criptalert-187b3.firebaseapp.com',
+    storageBucket: 'criptalert-187b3.firebasestorage.app',
+    measurementId: 'G-55CJTFPXVL',
+  );
+
+  static const FirebaseOptions linux = FirebaseOptions(
+  apiKey: 'AIzaSyALCgErhbzvxeIlMpYt2M6wEeqVizWPl9k',
+  appId: '1:845758125310:web:09aefbaf5580599de781af',
+  messagingSenderId: '845758125310',
+  projectId: 'criptalert-187b3',
+  authDomain: 'criptalert-187b3.firebaseapp.com',
+  storageBucket: 'criptalert-187b3.firebasestorage.app',
+  measurementId: 'G-55CJTFPXVL',
+);
 }

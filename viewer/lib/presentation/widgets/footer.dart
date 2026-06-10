@@ -87,6 +87,92 @@ class _FooterState extends State<Footer> {
               return Expanded(
                 child: GestureDetector(
                   onTap: () => _onTap(i),
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() => _selectedIndex = 0);
+                    print('Notifications clicked');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Login(selectedButton: 1),
+                      ),
+                    );
+                  },
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/Icons/notifications.svg',
+                      colorFilter: ColorFilter.mode(
+                        _selectedIndex == 0
+                            ? widget.bottonClicked
+                            : widget.notificationsColor,
+                        BlendMode.srcIn,
+                      ),
+                      width: widget.iconSize,
+                      height: widget.iconSize,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() => _selectedIndex = 1);
+                    print('Home clicked');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TableScreen(),
+                      ),
+                    );
+                  },
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/Icons/home.svg',
+                      colorFilter: ColorFilter.mode(
+                        _selectedIndex == 1
+                            ? widget.bottonClicked
+                            : widget.homeColor,
+                        BlendMode.srcIn,
+                      ),
+                      width: widget.iconSize,
+                      height: widget.iconSize,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() => _selectedIndex = 2);
+                    print('News clicked');
+                  },
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/Icons/news.svg',
+                      colorFilter: ColorFilter.mode(
+                        _selectedIndex == 2
+                            ? widget.bottonClicked
+                            : widget.newsColor,
+                        BlendMode.srcIn,
+                      ),
+                      width: widget.iconSize,
+                      height: widget.iconSize,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() => _selectedIndex = 3);
+                    print('Profile clicked');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login()),
+                    );
+                  },
                   child: Center(
                     child: SvgPicture.asset(
                       icons[i],
