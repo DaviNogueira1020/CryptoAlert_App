@@ -1,4 +1,5 @@
 import 'dart:convert';
+// import 'package:crypto_alert_backend/modules/crypto/crypto_ticker.dart';
 import 'package:http/http.dart' as http;
 
 class BinanceClient {
@@ -19,4 +20,6 @@ class BinanceClient {
 
     return price;
   }
+
+  // Future<CryptoTicker> getTicker(String symbol){}
 }

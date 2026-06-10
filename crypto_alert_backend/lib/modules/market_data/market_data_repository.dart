@@ -1,8 +1,28 @@
 import 'package:crypto_alert_backend/core/database/database_connection.dart';
 import 'package:crypto_alert_backend/modules/market_data/market_snapshot_model.dart';
+import 'package:crypto_alert_backend/modules/market_data/crypto_asset_model.dart';
 import 'package:postgres/postgres.dart';
 
 class MarketDataRepository{
+    Future<List<CryptoAsset>> findActiveAssets() async{
+    final connection = await DatabaseConnection.getConnection();
+
+    final result = await connection.execute(
+      '''
+      SELECT
+        symbol,
+        name,
+        active,
+        image_url
+      FROM crypto_assets
+      WHERE active = TRUE
+      ORDER BY symbol
+      '''
+    );
+
+    return result.map(CryptoAsset.fromRow).toList();
+  }
+
   Future<List<MarketSnapshot>> findAll() async{
     final connection = await DatabaseConnection.getConnection();
 

@@ -1,5 +1,5 @@
 import 'package:dart_frog/dart_frog.dart';
-import 'package:crypto_alert_backend/core/exceptions/conflict_exception.dart';
+// import 'package:crypto_alert_backend/core/exceptions/conflict_exception.dart';
 import 'package:crypto_alert_backend/core/exceptions/not_found_exception.dart';
 import 'package:crypto_alert_backend/core/exceptions/validation_exception.dart';
 

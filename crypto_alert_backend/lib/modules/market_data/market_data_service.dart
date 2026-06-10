@@ -1,10 +1,15 @@
 import 'package:crypto_alert_backend/core/exceptions/validation_exception.dart';
+import 'package:crypto_alert_backend/modules/market_data/crypto_asset_model.dart';
 import 'package:crypto_alert_backend/modules/market_data/market_data_repository.dart';
 import 'package:crypto_alert_backend/modules/market_data/market_snapshot_model.dart';
 
 class MarketDataService{
   final MarketDataRepository _repository = MarketDataRepository();
 
+  Future<List<CryptoAsset>> getActiveAssets() async {
+    return await _repository.findActiveAssets();
+  }
+  
   Future<List<MarketSnapshot>> getMarketSnapshots() async{
     return _repository.findAll();
   }
