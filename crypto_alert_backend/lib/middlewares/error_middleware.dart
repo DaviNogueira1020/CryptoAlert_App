@@ -21,13 +21,23 @@ Handler middleware(Handler handler){
           'error': e.message,
         },
       );
-    } catch (e){
+    }catch (e, stackTrace) {
+      print(e);
+      print(stackTrace);
+
       return Response.json(
         statusCode: 500,
         body: {
-          'error': 'Internal server error',
+          'error': e.toString(),
         },
       );
+    // } catch (e){
+    //   return Response.json(
+    //     statusCode: 500,
+    //     body: {
+    //       'error': 'Internal server error',
+    //     },
+    //   );
     }
   };
 }

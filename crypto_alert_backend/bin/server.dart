@@ -2,13 +2,16 @@ import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
 import 'package:crypto_alert_backend/scheduler/alerts_scheduler.dart';
+import 'package:crypto_alert_backend/scheduler/market_data_scheduler.dart';
 
 import '../.dart_frog/server.dart' as generated;
 
 Future<void> main() async{
-  final scheduler = AlertsScheduler();
+  final alertsScheduler = AlertsScheduler();
+  final marketDataScheduler = MarketDataScheduler();
 
-  scheduler.start();
+  marketDataScheduler.start();
+  alertsScheduler.start();
 
   final handler = generated.buildRootHandler();
 
