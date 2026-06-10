@@ -27,3 +27,6 @@ coverage/
 .env
 *.tmp
 *.swp
+windows/
+linux/
+macos/
