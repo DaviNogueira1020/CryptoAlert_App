@@ -45,10 +45,6 @@ class MarketDataRepository{
       '''
     );
 
-    if(result.isNotEmpty){
-      print(result.first);
-    }
-
     return result.map(MarketOverview.fromRow).toList();
   }
 
