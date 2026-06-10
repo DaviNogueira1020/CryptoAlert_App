@@ -5,12 +5,14 @@ class CryptoAsset{
   final String name;
   final bool active;
   final String? imageUrl;
+  final String? coingeckoId;
 
   CryptoAsset({
     required this.symbol,
     required this.name,
     required this.active,
     this.imageUrl,
+    this.coingeckoId,
   });
 
   factory CryptoAsset.fromRow(ResultRow row) {
@@ -19,6 +21,7 @@ class CryptoAsset{
       name: row[1]! as String,
       active: row[2]! as bool,
       imageUrl: row[3] as String?,
+      coingeckoId: row[4] as String?,
     );
   }
 }

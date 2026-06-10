@@ -6,7 +6,8 @@ CREATE TABLE crypto_assets(
     symbol VARCHAR(20) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     active BOOLEAN NOT NULL DEFAULT TRUE,
-    image_url TEXT
+    image_url TEXT,
+    coingecko_id VARCHAR(100)
 );
 
 -- ==========================================
@@ -32,13 +33,14 @@ CREATE TABLE market_snapshots(
 
 INSERT INTO crypto_assets(
     symbol,
-    name
+    name,
+    coingecko_id
 )
 VALUES
-    ('BTCUSDT', 'Bitcoin'),
-    ('ETHUSDT', 'Ethereum'),
-    ('SOLUSDT', 'Solana'),
-    ('BNBUSDT', 'BNB'),
-    ('ADAUSDT', 'Cardano'),
-    ('XRPUSDT', 'XRP'),
-    ('DOGEUSDT', 'Dogecoin');
+    ('BTCUSDT', 'Bitcoin', 'bitcoin'),
+    ('ETHUSDT', 'Ethereum', 'ethereum'),
+    ('SOLUSDT', 'Solana', 'solana'),
+    ('BNBUSDT', 'BNB', 'binancecoin'),
+    ('ADAUSDT', 'Cardano', 'cardano'),
+    ('XRPUSDT', 'XRP', 'ripple'),
+    ('DOGEUSDT', 'Dogecoin', 'dogecoin');
