@@ -17,13 +17,174 @@ http://localhost:8080
 
 ---
 
+# Health Check
+
+## GET /
+
+### Resposta
+
+```json
+{
+  "message": "Welcome to Dart Frog!"
+}
+```
+
+---
+
+# Alertas
+
+## Criar alerta
+
+### POST /alerts/create
+
+### Body
+
+```json
+{
+  "symbol": "BTCUSDT",
+  "target": 100000,
+  "type": "above"
+}
+```
+
+### Resposta
+
+```json
+{
+  "id": "uuid",
+  "symbol": "BTCUSDT",
+  "target": 100000,
+  "type": "above",
+  "active": true
+}
+```
+
+---
+
+## Listar alertas
+
+### GET /alerts/list
+
+### Resposta
+
+```json
+[
+  {
+    "id": "uuid",
+    "symbol": "BTCUSDT",
+    "target": 100000,
+    "type": "above",
+    "active": true
+  }
+]
+```
+
+---
+
+## Listar alertas ativos
+
+### GET /alerts/list_active
+
+---
+
+## Atualizar alerta
+
+### PUT /alerts/update/:id
+
+### Body
+
+```json
+{
+  "symbol": "ETHUSDT",
+  "target": 5000,
+  "type": "above"
+}
+```
+
+---
+
+## Ativar alerta
+
+### PATCH /alerts/activate/:id
+
+---
+
+## Desativar alerta
+
+### PATCH /alerts/deactivate/:id
+
+---
+
+## Excluir alerta
+
+### DELETE /alerts/delete/:id
+
+---
+
+# Notificações
+
+## Listar notificações
+
+### GET /notifications/list
+
+---
+
+## Listar não lidas
+
+### GET /notifications/unread
+
+---
+
+## Marcar como lida
+
+### PATCH /notifications/read/:id
+
+---
+
+## Excluir notificação
+
+### DELETE /notifications/delete/:id
+
+---
+
+# Autenticação
+
+## Registrar usuário
+
+### POST /auth/register
+
+---
+
+## Login
+
+### POST /auth/login
+
+---
+
+# Crypto
+
+## Consultar preço
+
+### GET /crypto/price?symbol=BTCUSDT
+
+### Resposta
+
+```json
+{
+  "symbol": "BTCUSDT",
+  "price": 61318.05
+}
+```
+
+---
+
 # Market Data
 
-## GET /market/overview
+## Visão geral do mercado
 
-Retorna os ativos monitorados e seus dados de mercado mais recentes.
+### GET /market/overview
 
-### Exemplo de Resposta
+### Resposta
 
 ```json
 [
@@ -32,23 +193,30 @@ Retorna os ativos monitorados e seus dados de mercado mais recentes.
     "name": "Bitcoin",
     "image_url": "https://...",
     "price_usd": 61318.05,
-    "change_24h": null,
-    "volume_24h": null,
+    "change_24h": 2.37,
+    "volume_24h": 1250000000.0,
     "updated_at": "2026-06-10T03:10:28.501019Z"
   }
 ]
 ```
 
-### Observações
+### Campos
 
-* change_24h ainda em implementação.
-* volume_24h ainda em implementação.
+| Campo      | Descrição                  |
+| ---------- | -------------------------- |
+| symbol     | Símbolo Binance            |
+| name       | Nome da criptomoeda        |
+| image_url  | URL da imagem              |
+| price_usd  | Preço atual em USD         |
+| change_24h | Variação percentual em 24h |
+| volume_24h | Volume negociado em 24h    |
+| updated_at | Última atualização         |
 
 ---
 
-## POST /market/refresh
+## Atualização manual do mercado
 
-Força atualização imediata dos snapshots de mercado.
+### POST /market/refresh
 
 ### Resposta
 
@@ -60,118 +228,38 @@ Força atualização imediata dos snapshots de mercado.
 
 ---
 
-# Alerts
+# Campos Planejados
 
-## GET /alerts/list
+Ainda não implementados:
 
-Lista todos os alertas cadastrados.
-
----
-
-## GET /alerts/list_active
-
-Lista apenas alertas ativos.
-
----
-
-## POST /alerts/create
-
-Cria um novo alerta.
-
-### Request
-
-```json
-{
-  "symbol": "BTCUSDT",
-  "target": 65000,
-  "type": "above"
-}
-```
-
-### Response
-
-```json
-{
-  "id": "...",
-  "symbol": "BTCUSDT",
-  "target": 65000,
-  "type": "above",
-  "active": true
-}
-```
-
----
-
-## PUT /alerts/update/:id
-
-Atualiza um alerta existente.
-
----
-
-## PATCH /alerts/activate/:id
-
-Ativa um alerta.
-
----
-
-## PATCH /alerts/deactivate/:id
-
-Desativa um alerta.
-
----
-
-## DELETE /alerts/delete/:id
-
-Remove um alerta.
-
----
-
-# Notifications
-
-## GET /notifications/list
-
-Lista todas as notificações.
-
----
-
-## GET /notifications/unread
-
-Lista notificações não lidas.
-
----
-
-## PATCH /notifications/read/:id
-
-Marca uma notificação como lida.
-
----
-
-## DELETE /notifications/delete/:id
-
-Remove uma notificação.
+* change_7d
+* change_30d
+* market_cap
+* circulating_supply
+* total_supply
+* Conversão USD → BRL
+* Conversão USD → EUR
+* Preferência de moeda do usuário
 
 ---
 
 # Status Atual
 
-## Implementado
+## Disponível para consumo pelo Frontend
 
-* Alerts CRUD
-* Notifications CRUD
+* Alertas
+* Notificações
+* Autenticação
 * Market Overview
-* Market Refresh
-* Scheduler de Alertas
-* Scheduler de Dados de Mercado
+* Refresh manual de mercado
 
-## Em Desenvolvimento
+## Em desenvolvimento
 
-* change_24h
-* volume_24h
-* variação 7d
-* variação 30d
-* conversão de moedas
-* autenticação JWT
+* Métricas avançadas de mercado
 * Firebase Cloud Messaging
+* Integração completa de usuários
+* Preferências personalizadas
+* Conversor de moedas
 
 ```
 ```

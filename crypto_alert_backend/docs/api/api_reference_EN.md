@@ -17,13 +17,129 @@ http://localhost:8080
 
 ---
 
+# Health Check
+
+## GET /
+
+### Response
+
+```json
+{
+  "message": "Welcome to Dart Frog!"
+}
+```
+
+---
+
+# Alerts
+
+## Create Alert
+
+### POST /alerts/create
+
+### Body
+
+```json
+{
+  "symbol": "BTCUSDT",
+  "target": 100000,
+  "type": "above"
+}
+```
+
+---
+
+## List Alerts
+
+### GET /alerts/list
+
+---
+
+## List Active Alerts
+
+### GET /alerts/list_active
+
+---
+
+## Update Alert
+
+### PUT /alerts/update/:id
+
+---
+
+## Activate Alert
+
+### PATCH /alerts/activate/:id
+
+---
+
+## Deactivate Alert
+
+### PATCH /alerts/deactivate/:id
+
+---
+
+## Delete Alert
+
+### DELETE /alerts/delete/:id
+
+---
+
+# Notifications
+
+## List Notifications
+
+### GET /notifications/list
+
+---
+
+## List Unread Notifications
+
+### GET /notifications/unread
+
+---
+
+## Mark As Read
+
+### PATCH /notifications/read/:id
+
+---
+
+## Delete Notification
+
+### DELETE /notifications/delete/:id
+
+---
+
+# Authentication
+
+## Register User
+
+### POST /auth/register
+
+---
+
+## Login
+
+### POST /auth/login
+
+---
+
+# Crypto
+
+## Get Price
+
+### GET /crypto/price?symbol=BTCUSDT
+
+---
+
 # Market Data
 
-## GET /market/overview
+## Market Overview
 
-Returns tracked assets and their latest market data.
+### GET /market/overview
 
-### Response Example
+### Response
 
 ```json
 [
@@ -32,23 +148,30 @@ Returns tracked assets and their latest market data.
     "name": "Bitcoin",
     "image_url": "https://...",
     "price_usd": 61318.05,
-    "change_24h": null,
-    "volume_24h": null,
+    "change_24h": 2.37,
+    "volume_24h": 1250000000.0,
     "updated_at": "2026-06-10T03:10:28.501019Z"
   }
 ]
 ```
 
-### Notes
+### Fields
 
-* change_24h is under development.
-* volume_24h is under development.
+| Field      | Description           |
+| ---------- | --------------------- |
+| symbol     | Binance symbol        |
+| name       | Asset name            |
+| image_url  | Asset image           |
+| price_usd  | Current USD price     |
+| change_24h | 24h percentage change |
+| volume_24h | 24h traded volume     |
+| updated_at | Last update timestamp |
 
 ---
 
-## POST /market/refresh
+## Manual Refresh
 
-Forces immediate market snapshot update.
+### POST /market/refresh
 
 ### Response
 
@@ -60,118 +183,38 @@ Forces immediate market snapshot update.
 
 ---
 
-# Alerts
+# Planned Fields
 
-## GET /alerts/list
+Not implemented yet:
 
-Returns all alerts.
-
----
-
-## GET /alerts/list_active
-
-Returns only active alerts.
-
----
-
-## POST /alerts/create
-
-Creates a new alert.
-
-### Request
-
-```json
-{
-  "symbol": "BTCUSDT",
-  "target": 65000,
-  "type": "above"
-}
-```
-
-### Response
-
-```json
-{
-  "id": "...",
-  "symbol": "BTCUSDT",
-  "target": 65000,
-  "type": "above",
-  "active": true
-}
-```
-
----
-
-## PUT /alerts/update/:id
-
-Updates an existing alert.
-
----
-
-## PATCH /alerts/activate/:id
-
-Activates an alert.
-
----
-
-## PATCH /alerts/deactivate/:id
-
-Deactivates an alert.
-
----
-
-## DELETE /alerts/delete/:id
-
-Deletes an alert.
-
----
-
-# Notifications
-
-## GET /notifications/list
-
-Returns all notifications.
-
----
-
-## GET /notifications/unread
-
-Returns unread notifications.
-
----
-
-## PATCH /notifications/read/:id
-
-Marks a notification as read.
-
----
-
-## DELETE /notifications/delete/:id
-
-Deletes a notification.
+* change_7d
+* change_30d
+* market_cap
+* circulating_supply
+* total_supply
+* USD → BRL conversion
+* USD → EUR conversion
+* User currency preference
 
 ---
 
 # Current Status
 
-## Implemented
+## Available for Frontend Integration
 
-* Alerts CRUD
-* Notifications CRUD
+* Alerts
+* Notifications
+* Authentication
 * Market Overview
-* Market Refresh
-* Alerts Scheduler
-* Market Data Scheduler
+* Manual Market Refresh
 
-## In Progress
+## Under Development
 
-* change_24h
-* volume_24h
-* 7d variation
-* 30d variation
-* currency conversion
-* JWT authentication
+* Advanced market metrics
 * Firebase Cloud Messaging
+* User integration
+* User preferences
+* Currency conversion
 
 ```
 ```
