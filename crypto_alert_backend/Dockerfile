@@ -1,4 +1,4 @@
-FROM dart:stable
+FROM dart:stable AS build
 
 WORKDIR /app
 
@@ -13,8 +13,9 @@ RUN dart pub get
 
 COPY . .
 
-RUN dart pub get
 RUN dart_frog build
+# garante build persistente
+RUN ls -la .dart_frog
 
 EXPOSE 8080
 
