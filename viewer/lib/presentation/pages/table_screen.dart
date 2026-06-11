@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/presentation/widgets/coin_detail_screen.dart';
+import 'package:mobile/services/api_service.dart';
 
 class CoinData {
   final String rank;
   final String name;
   final String symbol;
-  final String price;
-  final String change24h;
-  final bool isPositive;
+  String price;
+  String change24h;
+  bool isPositive;
 
-  const CoinData({
+  CoinData({
     required this.rank,
     required this.name,
     required this.symbol,
@@ -35,51 +36,79 @@ class TableScreenState extends State<TableScreen> {
   DateTime _lastUpdate = DateTime.now();
   final TextEditingController _searchController = TextEditingController();
   CoinData? _selectedCoin;
+  bool _isLoading = false;
 
-  final List<CoinData> _coins = const [
-    CoinData(
-        rank: "1",
-        name: "Bitcoin",
-        symbol: "BTC",
-        price: "\$85,000",
-        change24h: "+2.5%",
-        isPositive: true),
-    CoinData(
-        rank: "2",
-        name: "Ethereum",
-        symbol: "ETH",
-        price: "\$2,500",
-        change24h: "+1.2%",
-        isPositive: true),
-    CoinData(
-        rank: "3",
-        name: "Solana",
-        symbol: "SOL",
-        price: "\$145",
-        change24h: "-3.8%",
-        isPositive: false),
-    CoinData(
-        rank: "4",
-        name: "Cardano",
-        symbol: "ADA",
-        price: "\$0.75",
-        change24h: "+0.5%",
-        isPositive: true),
-    CoinData(
-        rank: "5",
-        name: "XRP",
-        symbol: "XRP",
-        price: "\$2.10",
-        change24h: "-1.1%",
-        isPositive: false),
-    CoinData(
-        rank: "6",
-        name: "Dogecoin",
-        symbol: "DOGE",
-        price: "\$0.18",
-        change24h: "+7.4%",
-        isPositive: true),
-  ];
+  late List<CoinData> _coins;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeCoins();
+    _refreshPrices();
+  }
+
+  void _initializeCoins() {
+    _coins = [
+      CoinData(
+          rank: "1",
+          name: "Bitcoin",
+          symbol: "BTCUSDT",
+          price: "\$85,000",
+          change24h: "+2.5%",
+          isPositive: true),
+      CoinData(
+          rank: "2",
+          name: "Ethereum",
+          symbol: "ETHUSDT",
+          price: "\$2,500",
+          change24h: "+1.2%",
+          isPositive: true),
+      CoinData(
+          rank: "3",
+          name: "Solana",
+          symbol: "SOLUSDT",
+          price: "\$145",
+          change24h: "-3.8%",
+          isPositive: false),
+      CoinData(
+          rank: "4",
+          name: "Cardano",
+          symbol: "ADAUSDT",
+          price: "\$0.75",
+          change24h: "+0.5%",
+          isPositive: true),
+      CoinData(
+          rank: "5",
+          name: "XRP",
+          symbol: "XRPUSDT",
+          price: "\$2.10",
+          change24h: "-1.1%",
+          isPositive: false),
+      CoinData(
+          rank: "6",
+          name: "Dogecoin",
+          symbol: "DOGEUSDT",
+          price: "\$0.18",
+          change24h: "+7.4%",
+          isPositive: true),
+    ];
+  }
+
+  Future<void> _refreshPrices() async {
+    setState(() => _isLoading = true);
+    
+    for (var coin in _coins) {
+      final price = await ApiService.getPrice(coin.symbol);
+      if (price != null) {
+        setState(() {
+          coin.price = '\$${price.toStringAsFixed(2)}';
+          _lastUpdate = DateTime.now();
+        });
+      }
+    }
+
+    setState(() => _isLoading = false);
+  }
 
   List<CoinData> get _filteredCoins {
     final query = _searchController.text.toLowerCase();
@@ -133,15 +162,25 @@ class TableScreenState extends State<TableScreen> {
             ),
           ),
           ElevatedButton.icon(
-            onPressed: () => setState(() => _lastUpdate = DateTime.now()),
-            icon: const Icon(Icons.refresh, size: 16, color: Colors.white),
-            label: const Text(
-              'Atualizar',
+            onPressed: _isLoading ? null : _refreshPrices,
+            icon: _isLoading
+                ? const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
+                  )
+                : const Icon(Icons.refresh, size: 16, color: Colors.white),
+            label: Text(
+              _isLoading ? 'Atualizando...' : 'Atualizar',
               style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF6366F1),
+              disabledBackgroundColor: const Color(0xFF4F46E5),
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8)),

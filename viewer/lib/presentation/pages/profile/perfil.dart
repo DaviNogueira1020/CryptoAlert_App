@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/presentation/widgets/header.dart';
 import 'package:mobile/presentation/widgets/footer.dart';
 import 'package:mobile/presentation/widgets/ticker_bar.dart';
+import 'package:mobile/presentation/widgets/animated_background.dart';
 import 'package:mobile/services/alertasServices.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,14 +22,13 @@ class PerfilPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Color(0xFF0B0F1A),
-      body: Column(
+    return AnimatedBackground(
+      child: Column(
         children: [
-          Header(),
-          TickerBar(),
-          Expanded(child: PerfilPageContent()),
-          Footer(initialBottonClicked: 3),
+          const Header(),
+          const TickerBar(),
+          const Expanded(child: PerfilPageContent()),
+          const Footer(initialBottonClicked: 3),
         ],
       ),
     );

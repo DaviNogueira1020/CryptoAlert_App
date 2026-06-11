@@ -7,6 +7,7 @@ import 'package:mobile/presentation/pages/table_screen.dart';
 import 'package:mobile/presentation/widgets/header.dart';
 import 'package:mobile/presentation/widgets/ticker_bar.dart';
 import 'package:mobile/presentation/widgets/footer.dart';
+import 'package:mobile/presentation/widgets/animated_background.dart';
 import 'package:mobile/presentation/pages/alerts/alertas_page.dart';
 import 'package:mobile/presentation/pages/profile/perfil.dart';
 
@@ -30,7 +31,8 @@ class _MainShellState extends State<MainShell> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    // Conteúdo principal sem AnimatedBackground (pois vai dentro)
+    final mainContent = Scaffold(
       backgroundColor: const Color(0xFF0B0F1A),
       body: Column(
         children: [
@@ -59,6 +61,11 @@ class _MainShellState extends State<MainShell> {
           ),
         ],
       ),
+    );
+
+    // Envolve o conteúdo com AnimatedBackground para adicionar partículas
+    return AnimatedBackground(
+      child: mainContent,
     );
   }
 }

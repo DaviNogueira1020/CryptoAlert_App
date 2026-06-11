@@ -13,11 +13,14 @@ import 'services/banco_de_dados.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (!kIsWeb) {
+  try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    // Inicializar BancoDeDados em todas as plataformas
     await BancoDeDados.inicializar();
+  } catch (e) {
+    print('Erro ao inicializar Firebase: $e');
   }
 
   // Carrega os alertas salvos antes de abrir o app
