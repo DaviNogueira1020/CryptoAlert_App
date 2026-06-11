@@ -98,7 +98,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Login(selectedButton: 0,),
+                      builder: (context) => const Login(selectedButton: 1,),
                   ));
                 },
               ),
@@ -110,7 +110,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Login(selectedButton: 1,),
+                      builder: (context) => const Login(selectedButton: 0,),
                   ));
                 },
               ),

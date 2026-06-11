@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mobile/presentation/pages/login.dart';
+import 'package:mobile/presentation/pages/onboardingScreen.dart';
 import 'package:mobile/presentation/shell/main_shell.dart';
 import 'package:mobile/services/alertasServices.dart';
+import 'package:mobile/services/sessao_usuario.dart';
 import 'firebase_options.dart';
 import 'services/banco_de_dados.dart';
 
@@ -34,7 +37,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MainShell(initialIndex: 1),
+      home: SessaoUsuario.chave.isEmpty
+        ? const OnboardingScreen()
+        : const MainShell(initialIndex: 1),
     );
   }
 }

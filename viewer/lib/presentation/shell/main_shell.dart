@@ -2,6 +2,7 @@
 // Só o conteúdo do meio muda quando o usuário troca de aba.
 
 import 'package:flutter/material.dart';
+import 'package:mobile/presentation/pages/newsPagesContent.dart';
 import 'package:mobile/presentation/pages/table_screen.dart';
 import 'package:mobile/presentation/widgets/header.dart';
 import 'package:mobile/presentation/widgets/ticker_bar.dart';
@@ -43,7 +44,7 @@ class _MainShellState extends State<MainShell> {
               children: [
                 const AlertasPageContent(),   // Aba 0
                 const TableScreen(),          // new Aba 1
-                const _NewsPlaceholder(),     // Aba 2
+                const NewsPageContent(),     // Aba 2
                 
                 Center(
                   child: PerfilPageContent(onTabSelected: (i) => setState(() => _currentIndex = i)),
