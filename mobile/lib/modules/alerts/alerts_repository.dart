@@ -1,61 +1,8 @@
+import 'package:crypto_alert_backend/modules/alerts/alert_model.dart';
 import 'package:crypto_alert_backend/modules/alerts/alert_type.dart';
+import 'package:crypto_alert_backend/core/exceptions/not_found_exception.dart';
 import 'package:crypto_alert_backend/core/database/database_connection.dart';
 import 'package:postgres/postgres.dart';
-
-class Alert{
-  final String id;
-  final String symbol;
-  final double target;
-  final AlertType type; // 'above' or 'below'
-  final bool active;
-
-  Alert({
-    required this.id,
-    required this.symbol,
-    required this.target,
-    required this.type, // 'above' or 'below'
-    this.active = true,
-  });
-
-  factory Alert.fromDatabase(Map<String, dynamic> row){
-    return Alert(
-      id: row['id'] as String,
-      symbol: row['symbol'] as String,
-      target: (row['target'] as num).toDouble(),
-      type: AlertTypeExtension.fromString(
-        row['type'] as String
-      ),
-      active: row['active'] as bool,
-    );
-  }
-
-  factory Alert.fromRow(ResultRow row) {
-    return Alert(
-      id: row[0]! as String,
-      symbol: row[1]! as String,
-      target: (row[2]! as num).toDouble(),
-      type: AlertTypeExtension.fromString(
-        row[3]! as String,
-      ),
-      active: row[4]! as bool,
-    );
-  }
-
-  Alert copyWith({
-    String? symbol,
-    double? target,
-    AlertType? type,
-    bool? active,
-  }) {
-    return Alert(
-      id: id,
-      symbol: symbol ?? this.symbol,
-      target: target ?? this.target,
-      type: type ?? this.type,
-      active: active ?? this.active,
-    );
-  }
-}
 
 class AlertsRepository {
   Future<void> create(Alert alert) async {
@@ -107,6 +54,10 @@ class AlertsRepository {
       },
     );
 
+    if(result.isEmpty){
+      throw NotFoundException ('Alert [ID: $id] not found');
+    }
+
     return Alert.fromRow(result.first);
   } */
 
@@ -147,13 +98,13 @@ class AlertsRepository {
     return result.map(Alert.fromRow).toList();
   }
 
-  Future<Alert> toggleStatus(String id) async{
+  Future<Alert> activate(String id) async{
     final connection = await DatabaseConnection.getConnection();
 
     final result = await connection.execute(
       Sql.named('''
         UPDATE alerts
-        SET active = NOT active
+        SET active = TRUE
         WHERE id = @id
         RETURNING
           id,
@@ -162,13 +113,40 @@ class AlertsRepository {
           type,
           active
       '''),
-      parameters: {
+      parameters:{
         'id': id,
       },
     );
 
     if(result.isEmpty){
-      throw Exception('Alert [ID: $id] not found');
+      throw NotFoundException('Alert [ID: $id] not found');
+    }
+
+    return Alert.fromRow(result.first);
+  }
+
+  Future<Alert> deactivate(String id) async{
+    final connection = await DatabaseConnection.getConnection();
+
+    final result = await connection.execute(
+      Sql.named('''
+        UPDATE alerts
+        SET active = FALSE
+        WHERE id = @id
+        RETURNING
+          id,
+          symbol,
+          target,
+          type,
+          active
+      '''),
+      parameters:{
+        'id': id,
+      },
+    );
+
+    if(result.isEmpty){
+      throw NotFoundException('Alert [ID: $id] not found');
     }
 
     return Alert.fromRow(result.first);
@@ -206,7 +184,7 @@ class AlertsRepository {
     );
 
     if(result.isEmpty){
-      throw Exception('Alert [ID: $id] not found');
+      throw NotFoundException('Alert [ID: $id] not found');
     }
 
     return Alert.fromRow(result.first);
@@ -232,7 +210,7 @@ class AlertsRepository {
     );
 
     if(result.isEmpty){
-      throw Exception('Alert [ID: $id] not found');
+      throw NotFoundException('Alert [ID: $id] not found');
     }
 
     return Alert.fromRow(result.first);

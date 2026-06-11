@@ -11,7 +11,7 @@ Future<Response> onRequest(RequestContext context, String id) async {
 
   final service = NotificationsService();
   
-  final markedAsReadNotification = service.markNotificationAsRead(id);
+  final markedAsReadNotification = await service.markNotificationAsRead(id);
 
   return Response.json(
     body: {

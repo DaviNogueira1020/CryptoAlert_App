@@ -18,7 +18,7 @@ class AlertsCheckerService{
       switch (alert.type){
         case AlertType.above:
           if(currentPrice >= alert.target){
-            final notification = _notificationsService.createNotification(
+            final notification = await _notificationsService.createNotification(
               alertId: alert.id,
               title: 'Price Alert Triggered',
               message: '${alert.symbol} is above ${alert.target} '
@@ -27,11 +27,13 @@ class AlertsCheckerService{
             
             print('[NOTIFICATION CREATED] ${notification.title}:\n'
                   '${notification.message})');
+
+            await _alertsService.deactivateAlert(alert.id); //TODO: Refactor and change this
           }
           break;
         case AlertType.below:
           if(currentPrice <= alert.target){
-            final notification = _notificationsService.createNotification(
+            final notification = await _notificationsService.createNotification(
               alertId: alert.id,
               title: 'Price Alert Triggered',
               message: '${alert.symbol} is below ${alert.target} '
@@ -39,7 +41,9 @@ class AlertsCheckerService{
             );
             
             print('[NOTIFICATION CREATED] ${notification.title}:\n'
-                  '${notification.message})');
+                  '${notification.message}');
+
+            await _alertsService.deactivateAlert(alert.id); //TODO: Refactor and change this
           }
           break;
       }
