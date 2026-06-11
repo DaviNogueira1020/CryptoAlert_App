@@ -18,7 +18,7 @@ class DatabaseConnection {
         password: Environment.dbPassword,
       ),
       settings: const ConnectionSettings(
-        sslMode: SslMode.require,
+        sslMode: SslMode.disable,
       ),
     );
 
