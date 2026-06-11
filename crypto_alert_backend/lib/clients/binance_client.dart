@@ -1,14 +1,14 @@
 import 'dart:convert';
+import 'package:crypto_alert_backend/config/environment.dart';
 import 'package:crypto_alert_backend/modules/crypto/crypto_ticker.dart';
 import 'package:http/http.dart' as http;
 
 class BinanceClient {
-  static const String tickerPriceUrl = 'https://api.binance.com/api/v3/ticker/price';
-
-  static const String ticker24hUrl = 'https://api.binance.com/api/v3/ticker/24hr';
+  String get _tickerPriceUrl => '${Environment.binanceUrl}/ticker/price';
+  String get _ticker24hUrl => '${Environment.binanceUrl}/ticker/24hr';
 
   Future<double> getPrice(String symbol) async{
-    final url = Uri.parse('$tickerPriceUrl?symbol=$symbol');
+    final url = Uri.parse('$_tickerPriceUrl?symbol=$symbol');
 
     final response = await http.get(url);
     
@@ -23,7 +23,7 @@ class BinanceClient {
   }
 
   Future<CryptoTicker> getTicker(String symbol) async{
-    final url = Uri.parse('$ticker24hUrl?symbol=$symbol');
+    final url = Uri.parse('$_ticker24hUrl?symbol=$symbol');
 
     final response = await http.get(url);
 

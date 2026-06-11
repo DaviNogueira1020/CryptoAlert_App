@@ -21,4 +21,6 @@ class Environment {
   static String get dbName => _getVar('DB_NAME');
   static String get dbUser => _getVar('DB_USER');
   static String get dbPassword => _getVar('DB_PASSWORD');
+
+  static String get binanceUrl => _getVar('BINANCE_URL');
 }
