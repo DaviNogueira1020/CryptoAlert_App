@@ -240,6 +240,7 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
                   ],
                 ),
               ],
+
             ),
           ),
         ),
@@ -270,90 +271,92 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
   }
 
   Widget _buildTabButtons() {
-    return Container(
-      width: 260,
-      height: 40,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: GestureDetector(
-              onTap: () => setState(() { _selectedButtonIndex = 0; _erro = null; }),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: _selectedButtonIndex == 0 ? const Color(0xFF6366F1) : Colors.transparent,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/Icons/login.svg',
-                        colorFilter: ColorFilter.mode(
-                          _selectedButtonIndex == 0 ? Colors.white : const Color(0xFF9CA3AF),
-                          BlendMode.srcIn,
-                        ),
-                        width: 17,
-                        height: 17,
+  return Container(
+    width: 260,
+    height: 40,
+    decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Cadastro Button
+        Expanded(
+          child: GestureDetector(
+            onTap: () => setState(() { _selectedButtonIndex = 0; _erro = null; }),
+            child: Container(
+              decoration: BoxDecoration(
+                color: _selectedButtonIndex == 0 ? const Color(0xFF6366F1) : Colors.transparent,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/Icons/register.svg',
+                      colorFilter: ColorFilter.mode(
+                        _selectedButtonIndex == 0 ? Colors.white : const Color(0xFF9CA3AF),
+                        BlendMode.srcIn,
                       ),
-                      const SizedBox(width: 6),
-                      Text(
-                        "Login",
-                        style: TextStyle(
-                          color: _selectedButtonIndex == 0 ? Colors.white : const Color(0xFF9CA3AF),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      width: 17,
+                      height: 17,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      "Cadastro",
+                      style: TextStyle(
+                        color: _selectedButtonIndex == 0 ? Colors.white : const Color(0xFF9CA3AF),
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () => setState(() { _selectedButtonIndex = 1; _erro = null; }),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: _selectedButtonIndex == 1 ? const Color(0xFF6366F1) : Colors.transparent,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/Icons/register.svg',
-                        colorFilter: ColorFilter.mode(
-                          _selectedButtonIndex == 1 ? Colors.white : const Color(0xFF9CA3AF),
-                          BlendMode.srcIn,
-                        ),
-                        width: 17,
-                        height: 17,
+        ),
+        // Login Button
+        Expanded(
+          child: GestureDetector(
+            onTap: () => setState(() { _selectedButtonIndex = 1; _erro = null; }),
+            child: Container(
+              decoration: BoxDecoration(
+                color: _selectedButtonIndex == 1 ? const Color(0xFF6366F1) : Colors.transparent,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/Icons/login.svg',
+                      colorFilter: ColorFilter.mode(
+                        _selectedButtonIndex == 1 ? Colors.white : const Color(0xFF9CA3AF),
+                        BlendMode.srcIn,
                       ),
-                      const SizedBox(width: 6),
-                      Text(
-                        "Register",
-                        style: TextStyle(
-                          color: _selectedButtonIndex == 1 ? Colors.white : const Color(0xFF9CA3AF),
-                          fontWeight: FontWeight.bold,
-                        ),
+                      width: 17,
+                      height: 17,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      "Login",
+                      style: TextStyle(
+                        color: _selectedButtonIndex == 1 ? Colors.white : const Color(0xFF9CA3AF),
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 
   Widget _buildContentLogin() {
     return Column(
@@ -387,7 +390,7 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Create account",
+                          "Criar Key",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
@@ -421,7 +424,7 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Private key",
+          "Chave privada",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
         ),
         const SizedBox(height: 8),
@@ -429,7 +432,7 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
           controller: _keyController,
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
-            hintText: "Enter your key",
+            hintText: "Digite sua chave",
             hintStyle: const TextStyle(color: Color(0xFF9CA3AF)),
             filled: true,
             fillColor: Colors.transparent,
@@ -467,7 +470,7 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
               child: _loading
                   ? const CircularProgressIndicator(color: Colors.white)
                   : const Text(
-                      "Enter",
+                      "Entrar",
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
