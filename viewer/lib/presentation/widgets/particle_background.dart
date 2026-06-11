@@ -27,7 +27,8 @@ class ParticleBackground extends StatefulWidget {
 class _ParticleBackgroundState extends State<ParticleBackground>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
-  final List<Particle> particles = [];
+  final List<Particle> particles = [];33159
+
   final Random random = Random();
 
   @override
