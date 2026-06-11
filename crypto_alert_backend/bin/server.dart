@@ -15,10 +15,14 @@ Future<void> main() async{
 
   final handler = generated.buildRootHandler();
 
+  final port = int.parse(
+    Platform.environment['PORT'] ?? '8080',
+  );
+
   final server = await serve(
     handler,
     InternetAddress.anyIPv4,
-    8080,
+    port,
   );
 
   print('Server listening on port ${server.port}');
