@@ -2,8 +2,13 @@ FROM dart:stable
 
 WORKDIR /app
 
-COPY pubspec.* ./
+# Instalar Dart Frog CLI
+RUN dart pub global activate dart_frog_cli
 
+# Adicionar pub-cache ao PATH
+ENV PATH="/root/.pub-cache/bin:$PATH"
+
+COPY pubspec.* ./
 RUN dart pub get
 
 COPY . .
