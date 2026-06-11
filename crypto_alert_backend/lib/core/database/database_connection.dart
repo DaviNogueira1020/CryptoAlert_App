@@ -9,6 +9,8 @@ class DatabaseConnection {
       return _connection!;
     }
 
+    final isLocal = Environment.dbHost == 'localhost' || Environment.dbHost == '127.0.0.1';
+
     _connection = await Connection.open(
       Endpoint(
         host: Environment.dbHost,
@@ -17,8 +19,8 @@ class DatabaseConnection {
         username: Environment.dbUser,
         password: Environment.dbPassword,
       ),
-      settings: const ConnectionSettings(
-        sslMode: SslMode.disable,
+      settings: ConnectionSettings(
+        sslMode: isLocal ? SslMode.disable : SslMode.require, 
       ),
     );
 
