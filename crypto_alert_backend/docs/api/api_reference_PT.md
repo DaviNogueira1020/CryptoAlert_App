@@ -14,7 +14,8 @@ API responsável por:
 Base URL:
 
 ```text
-http://localhost:8080
+- Local: http://localhost:8080
+- Produção: https://cryptoalertappapi-production.up.railway.app
 ```
 
 ---
@@ -123,6 +124,22 @@ http://localhost:8080
 
 ---
 
+## CRUD Completo
+
+Endpoints: 
+
+| Método | Endpoint                  |
+| ------ | ------------------------- |
+| POST   | /alerts/create            |
+| GET    | /alerts/list              |
+| GET    | /alerts/list_active       |
+| PUT    | /alerts/update/:id        |
+| PATCH  | /alerts/deactivate/:id    |
+| PATCH  | /alerts/activate/:id      |
+| DELETE | /alerts/delete/:id        |
+
+---
+
 # Notificações
 
 ## Listar notificações
@@ -149,6 +166,17 @@ http://localhost:8080
 
 ---
 
+## Endpoints
+
+| Método | Endpoint                  |
+| ------ | ------------------------- |
+| GET    | /notifications/list       |
+| GET    | /notifications/unread     |
+| PATCH  | /notifications/read/:id   |
+| DELETE | /notifications/delete/:id |
+
+---
+
 # Autenticação
 
 ## Registrar usuário
@@ -162,6 +190,16 @@ http://localhost:8080
 ### POST /auth/login
 
 ---
+
+## Endpoints
+
+| Método | Endpoint                  |
+| ------ | ------------------------- |
+| POST   | /auth/register            |
+| POST   | /auth/login               |
+ 
+---
+
 
 # Crypto
 
@@ -238,6 +276,16 @@ http://localhost:8080
 }
 ```
 
+---
+
+## Endpoints
+
+| Método | Endpoint                  |
+| ------ | ------------------------- |
+| GET    | /market/overview          |
+| POST   | /market/refresh           |
+| GET    | /crypto/price?symbol=...  |
+ 
 ---
 
 # Fontes de Dados

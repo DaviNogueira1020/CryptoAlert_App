@@ -1,3 +1,8 @@
+---
+
+### `docs/backlogs/backend_development_PT.md`
+
+```markdown
 # CryptoAlert Mobile Backend — Log de Desenvolvimento
 
 ## Visão Geral
@@ -9,7 +14,6 @@ Backend desenvolvido em Dart utilizando Dart Frog para gerenciamento de alertas 
 # Objetivo
 
 O backend é responsável por:
-
 * Gerenciamento de usuários
 * Gerenciamento de alertas
 * Monitoramento de criptomoedas
@@ -34,7 +38,6 @@ O backend é responsável por:
 # Arquitetura
 
 O projeto segue arquitetura em camadas:
-
 * Routes
 * Services
 * Repositories
@@ -58,13 +61,11 @@ O projeto segue arquitetura em camadas:
 # Integração Binance
 
 Arquivos:
-
 * clients/binance_client.dart
 * modules/crypto/crypto_service.dart
 * routes/crypto/price.dart
 
 Funcionalidades:
-
 * Consulta de preços em tempo real
 * Integração com Binance Spot API
 * Endpoint de consulta individual
@@ -74,9 +75,7 @@ Funcionalidades:
 # Sistema de Alertas
 
 ## Estrutura
-
 Campos:
-
 * id
 * symbol
 * target
@@ -84,7 +83,6 @@ Campos:
 * active
 
 ## CRUD Completo
-
 Endpoints:
 
 | Método | Endpoint                  |
@@ -93,25 +91,24 @@ Endpoints:
 | GET    | /alerts/list              |
 | GET    | /alerts/list_active       |
 | PUT    | /alerts/update/:id        |
-| PATCH  | /alerts/toggle_status/:id |
+| PATCH  | /alerts/activate/:id      |
+| PATCH  | /alerts/deactivate/:id    |
 | DELETE | /alerts/delete/:id        |
 
 ## Melhorias Implementadas
-
 * Enum AlertType
 * copyWith
 * Atualização parcial via COALESCE
 * Desativação automática após disparo
 * Persistência PostgreSQL
+* Separação explícita de ativação/desativação visando idempotência nas requisições.
 
 ---
 
 # Sistema de Notificações
 
 ## Estrutura
-
 Campos:
-
 * id
 * alert_id
 * title
@@ -129,7 +126,6 @@ Campos:
 | DELETE | /notifications/delete/:id |
 
 ## Funcionalidades
-
 * Listagem completa
 * Listagem de não lidas
 * Marcar como lida
@@ -141,17 +137,14 @@ Campos:
 # PostgreSQL
 
 Migração concluída dos módulos:
-
 * Alerts
 * Notifications
 
 Removido:
-
 * mock_database.dart
 * Persistência em memória
 
 Implementado:
-
 * DatabaseConnection
 * Queries parametrizadas
 * RETURNING
@@ -162,11 +155,9 @@ Implementado:
 # Scheduler
 
 Arquivo:
-
 * alerts_scheduler.dart
 
 Responsabilidades:
-
 * Buscar alertas ativos
 * Consultar Binance
 * Validar condições
@@ -180,7 +171,6 @@ Responsabilidades:
 Implementado middleware global.
 
 ## Exceptions customizadas
-
 * ValidationException
 * NotFoundException
 * ConflictException
@@ -196,104 +186,25 @@ Implementado middleware global.
 
 ---
 
-# Estado Atual
-
-## Concluído
-
-✅ Arquitetura modular
-
-✅ Integração Binance
-
-✅ CRUD completo de alertas
-
-✅ CRUD completo de notificações
-
-✅ Scheduler funcional
-
-✅ PostgreSQL integrado
-
-✅ Error Middleware
-
-✅ Exceptions customizadas
-
-✅ Repository Pattern
-
-✅ Service Layer
-
-✅ Rotas RESTful
-
----
-
-# Próximas Entregas
-
-## Market Data
-
-* Cadastro de criptomoedas monitoradas
-* Histórico de preços
-* Cache local de mercado
-* Tickers para dashboard
-* Endpoint de mercado
-
-## Firebase
-
-* Integração FCM
-* Push notifications reais
-
-## Auth
-
-* Cadastro
-* Login
-* JWT
-* Middleware de autenticação
-
-## Infraestrutura
-
-* Variáveis de ambiente
-* Logs estruturados
-* Docker
-* Deploy
-
----
-
-# Estado Atual
-
-✅ Backend funcional  
-✅ Scheduler em execução  
-✅ Endpoints funcionando  
-✅ CRUD completo  
-✅ Arquitetura modular consolidada
-
----
-
 # Módulo de Dados de Mercado
 
 ## Objetivo
-
 Disponibilizar ao aplicativo informações de mercado atualizadas para exibição de preços, métricas e monitoramento dos ativos cadastrados.
-
----
 
 ## Integrações Implementadas
 
 ### Binance API
-
 Responsável por fornecer:
-
 - preço atual
 - variação de 24 horas
 - volume negociado em 24 horas
 
 Arquivos:
-
 - clients/binance_client.dart
 - modules/crypto/crypto_service.dart
 
----
-
 ### CoinGecko API
-
 Responsável por fornecer:
-
 - imagem do ativo
 - market cap
 - circulating supply
@@ -302,77 +213,31 @@ Responsável por fornecer:
 - variação de 30 dias
 
 Arquivos:
-
 - clients/coingecko_client.dart
 - modules/market_data/coingecko_market_data.dart
 
----
-
 ## Banco de Dados
-
-Tabela:
-
-### crypto_assets
-
-Campos adicionados:
-
+Tabela `crypto_assets` (Campos adicionados):
 - image_url
 - coingecko_id
 
----
-
-### market_snapshots
-
-Campos adicionados:
-
+Tabela `market_snapshots` (Campos adicionados):
 - change_7d
 - change_30d
 - market_cap
 - circulating_supply
 - total_supply
 
----
+## Endpoints de Mercado
 
-## Endpoint de Mercado
-
-### GET /market/overview
-
-Retorna:
-
-- símbolo
-- nome
-- imagem
-- preço
-- volume
-- variações
-- market cap
-- supply
-- timestamp da última atualização
-
----
-
-### POST /market/refresh
-
-Atualiza manualmente todos os snapshots de mercado.
-
-Fluxo:
-
-1. consulta ativos cadastrados
-2. consulta Binance
-3. consulta CoinGecko
-4. atualiza banco
-5. retorna sucesso
-
----
+| Método | Endpoint                  |
+| ------ | ------------------------- |
+| GET    | /market/overview          |
+| POST   | /market/refresh           |
 
 ## Scheduler de Mercado
-
-Implementado serviço de atualização automática:
-
-- MarketDataUpdaterService
-
+Implementado serviço de atualização automática: `MarketDataUpdaterService`
 Responsável por:
-
 - sincronizar Binance
 - sincronizar CoinGecko
 - persistir snapshots
@@ -382,75 +247,46 @@ Responsável por:
 # Estado Atual do Backend
 
 ## Implementado
-
 ✅ Sistema de Alertas
-
 ✅ Sistema de Notificações
-
 ✅ PostgreSQL
-
 ✅ Integração Binance
-
 ✅ Integração CoinGecko
-
 ✅ Snapshot de Mercado
-
 ✅ Endpoint /market/overview
-
 ✅ Endpoint /market/refresh
-
 ✅ Arquitetura modular consolidada
-
----
 
 ## Pendências Principais
 
 ### Autenticação
-
 Necessário concluir:
-
 - registro
 - login
 - JWT
 - middleware de autenticação
 
----
-
 ### Integração Usuário ↔ Alertas
-
 Relacionar:
-
 - usuários
 - alertas
 - notificações
 - preferências
 
----
-
 ### Firebase Cloud Messaging
-
 Necessário:
-
 - registrar tokens
 - enviar push notifications
 - integração completa com dispositivos móveis
 
----
-
 ### Conversor de Moedas
-
 Planejado:
-
 - USD → BRL
 - USD → EUR
 - Preferência de moeda do usuário
 
----
-
 ### Preferências do Usuário
-
 Planejado:
-
 - moedas favoritas
 - moeda padrão
 - personalização de notificações

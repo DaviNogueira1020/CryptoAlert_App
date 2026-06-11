@@ -2,14 +2,13 @@
 
 ## Overview
 
-Backend developed in Dart using Dart Frog for cryptocurrency alert management integrated with Binance API.
+Backend developed in Dart using Dart Frog for cryptocurrency alert management integrated with the Binance API.
 
 ---
 
 # Objective
 
 The backend is responsible for:
-
 * User management
 * Alert management
 * Cryptocurrency monitoring
@@ -24,7 +23,7 @@ The backend is responsible for:
 | Technology               | Purpose            |
 | ------------------------ | ------------------ |
 | Dart                     | Backend language   |
-| Dart Frog                | HTTP framework     |
+| Dart Frog                | HTTP Framework     |
 | PostgreSQL               | Database           |
 | Binance API              | Market data        |
 | Firebase Cloud Messaging | Push notifications |
@@ -34,7 +33,6 @@ The backend is responsible for:
 # Architecture
 
 The project follows a layered architecture:
-
 * Routes
 * Services
 * Repositories
@@ -44,46 +42,43 @@ The project follows a layered architecture:
 
 ## Responsibilities
 
-| Layer      | Responsibility         |
-| ---------- | ---------------------- |
-| Route      | HTTP communication     |
-| Service    | Business rules         |
-| Repository | Persistence            |
-| Client     | External APIs          |
-| Scheduler  | Periodic jobs          |
-| Middleware | Cross-cutting concerns |
+| Layer      | Responsibility       |
+| ---------- | -------------------- |
+| Route      | HTTP Communication   |
+| Service    | Business rules       |
+| Repository | Persistence          |
+| Client     | External APIs        |
+| Scheduler  | Periodic processes   |
+| Middleware | Cross-cutting logic  |
 
 ---
 
 # Binance Integration
 
 Files:
-
 * clients/binance_client.dart
 * modules/crypto/crypto_service.dart
 * routes/crypto/price.dart
 
 Features:
-
-* Real-time prices
+* Real-time price fetching
 * Binance Spot API integration
-* Single asset price endpoint
+* Individual crypto query endpoint
 
 ---
 
-# Alert System
+# Alerts System
 
 ## Structure
-
 Fields:
-
 * id
 * symbol
 * target
 * type
 * active
 
-## Complete CRUD
+## Full CRUD
+Endpoints:
 
 | Method | Endpoint                  |
 | ------ | ------------------------- |
@@ -91,25 +86,24 @@ Fields:
 | GET    | /alerts/list              |
 | GET    | /alerts/list_active       |
 | PUT    | /alerts/update/:id        |
-| PATCH  | /alerts/toggle_status/:id |
+| PATCH  | /alerts/activate/:id      |
+| PATCH  | /alerts/deactivate/:id    |
 | DELETE | /alerts/delete/:id        |
 
-## Improvements
-
-* AlertType enum
-* copyWith pattern
-* Partial updates via COALESCE
-* Automatic deactivation after trigger
+## Implemented Improvements
+* AlertType Enum
+* copyWith method
+* Partial update via COALESCE
+* Automatic deactivation after triggering
 * PostgreSQL persistence
+* Explicit separation of activation/deactivation to ensure request idempotency.
 
 ---
 
-# Notification System
+# Notifications System
 
 ## Structure
-
 Fields:
-
 * id
 * alert_id
 * title
@@ -127,47 +121,41 @@ Fields:
 | DELETE | /notifications/delete/:id |
 
 ## Features
-
-* List all notifications
-* List unread notifications
+* Full listing
+* Unread listing
 * Mark as read
-* Delete notifications
+* Deletion
 * PostgreSQL persistence
 
 ---
 
 # PostgreSQL
 
-Migration completed for:
-
+Migration completed for modules:
 * Alerts
 * Notifications
 
 Removed:
-
 * mock_database.dart
 * In-memory persistence
 
 Implemented:
-
 * DatabaseConnection
 * Parameterized queries
 * RETURNING clauses
-* ResultRow → Model mapping
+* ResultRow → Model conversion
 
 ---
 
 # Scheduler
 
 File:
-
 * alerts_scheduler.dart
 
 Responsibilities:
-
 * Fetch active alerts
-* Query Binance prices
-* Validate trigger conditions
+* Query Binance
+* Validate conditions
 * Create notifications
 * Deactivate triggered alerts
 
@@ -175,10 +163,9 @@ Responsibilities:
 
 # Global Error Handling
 
-Global middleware implemented.
+Implemented global middleware.
 
 ## Custom Exceptions
-
 * ValidationException
 * NotFoundException
 * ConflictException
@@ -194,259 +181,107 @@ Global middleware implemented.
 
 ---
 
-# Current Status
-
-## Completed
-
-✅ Modular architecture
-
-✅ Binance integration
-
-✅ Full alerts CRUD
-
-✅ Full notifications CRUD
-
-✅ Scheduler
-
-✅ PostgreSQL integration
-
-✅ Error middleware
-
-✅ Custom exceptions
-
-✅ Repository pattern
-
-✅ Service layer
-
-✅ RESTful routes
-
----
-
-# Next Deliveries
-
-## Market Data
-
-* Tracked crypto assets
-* Historical prices
-* Local market cache
-* Dashboard tickers
-* Market endpoints
-
-## Firebase
-
-* FCM integration
-* Real push notifications
-
-## Authentication
-
-* Register
-* Login
-* JWT
-* Authentication middleware
-
-## Infrastructure
-
-* Environment variables
-* Structured logs
-* Docker
-* Deployment
-
----
-
-# Current State
-
-✅ Functional backend  
-✅ Running scheduler  
-✅ Working endpoints  
-✅ Complete CRUD  
-✅ Modular architecture consolidated
-
----
-
 # Market Data Module
 
-## Goal
-
-Provide updated market information for asset monitoring and frontend visualization.
-
----
+## Objective
+Provide the mobile application with up-to-date market information to display prices, metrics, and monitor registered assets.
 
 ## Implemented Integrations
 
 ### Binance API
-
-Provides:
-
+Responsible for providing:
 - current price
-- 24h change
-- 24h volume
+- 24-hour change
+- 24-hour trading volume
 
 Files:
-
 - clients/binance_client.dart
 - modules/crypto/crypto_service.dart
 
----
-
 ### CoinGecko API
-
-Provides:
-
+Responsible for providing:
 - asset image
 - market cap
 - circulating supply
 - total supply
-- 7d change
-- 30d change
+- 7-day change
+- 30-day change
 
 Files:
-
 - clients/coingecko_client.dart
 - modules/market_data/coingecko_market_data.dart
 
----
-
 ## Database
-
-### crypto_assets
-
-Added fields:
-
+`crypto_assets` Table (Added fields):
 - image_url
 - coingecko_id
 
----
-
-### market_snapshots
-
-Added fields:
-
+`market_snapshots` Table (Added fields):
 - change_7d
 - change_30d
 - market_cap
 - circulating_supply
 - total_supply
 
----
-
 ## Market Endpoints
 
-### GET /market/overview
-
-Returns:
-
-- symbol
-- name
-- image
-- price
-- volume
-- changes
-- market cap
-- supply
-- last update timestamp
-
----
-
-### POST /market/refresh
-
-Manually refreshes all market snapshots.
-
-Flow:
-
-1. fetch assets
-2. query Binance
-3. query CoinGecko
-4. persist data
-5. return success
-
----
+| Method | Endpoint                  |
+| ------ | ------------------------- |
+| GET    | /market/overview          |
+| POST   | /market/refresh           |
 
 ## Market Scheduler
-
-Implemented:
-
-- MarketDataUpdaterService
-
-Responsibilities:
-
-- Binance synchronization
-- CoinGecko synchronization
-- snapshot persistence
+Implemented automatic update service: `MarketDataUpdaterService`
+Responsible for:
+- synchronizing with Binance
+- synchronizing with CoinGecko
+- persisting snapshots
 
 ---
 
 # Current Backend Status
 
-## Completed
-
-✅ Alert System
-
-✅ Notification System
-
+## Implemented
+✅ Alerts System
+✅ Notifications System
 ✅ PostgreSQL
-
 ✅ Binance Integration
-
 ✅ CoinGecko Integration
-
-✅ Market Snapshots
-
+✅ Market Snapshot
 ✅ /market/overview endpoint
-
 ✅ /market/refresh endpoint
-
-✅ Modular architecture consolidated
-
----
+✅ Consolidated modular architecture
 
 ## Main Pending Tasks
 
 ### Authentication
-
-Remaining work:
-
-- register
+Needs completion:
+- registration
 - login
 - JWT
 - authentication middleware
 
----
-
-### User Integration
-
-Need to associate:
-
+### User ↔ Alerts Integration
+Relate:
 - users
 - alerts
 - notifications
 - preferences
 
----
-
 ### Firebase Cloud Messaging
+Requirements:
+- register device tokens
+- send push notifications
+- full integration with mobile devices
 
-Required:
-
-- device token registration
-- push notification delivery
-- mobile integration
-
----
-
-### Currency Conversion
-
+### Currency Converter
 Planned:
-
 - USD → BRL
 - USD → EUR
-- user preferred currency
-
----
+- User currency preference
 
 ### User Preferences
-
 Planned:
-
-- favorite assets
+- favorite coins
 - default currency
 - notification customization
