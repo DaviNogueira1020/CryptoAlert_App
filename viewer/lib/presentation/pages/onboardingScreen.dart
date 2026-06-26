@@ -1,4 +1,4 @@
-//*import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:mobile/presentation/widgets/animated_background.dart';
 import 'package:mobile/presentation/pages/login.dart';
 
@@ -42,7 +42,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             _buildPresentationPage(
               imagePath: 'assets/Presentation/presentation2.png',
-              text: 'Não descubra tarde demais. Seja notificado no primeiro sinal de queda',
+              text:
+                  'Não descubra tarde demais. Seja notificado no primeiro sinal de queda',
             ),
             _buildPresentationPage(
               imagePath: 'assets/Presentation/presentation3.png',
@@ -95,26 +96,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _buildOutlineButton(
-                label: 'Entrar',
-                onPressed: () { 
-                  print('login clicked');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Login(selectedButton: 1,),
-                  ));
-                },
-              ),
-              const SizedBox(width: 12),
-              _buildOutlineButton(
                 label: 'Cadastrar',
-                onPressed: () { 
+                onPressed: () {
                   print('sign up clicked');
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Login(selectedButton: 0,),
-                  ));
+                      builder: (context) => const Login(
+                        selectedButton: 0,
+                      ),
+                    ));
+                },
+              ),
+              const SizedBox(width: 12),
+              _buildOutlineButton(
+                label: 'Entrar',
+                onPressed: () {
+                  print('login clicked');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Login(
+                        selectedButton: 1,
+                      ),
+                    )
+                  );
                 },
               ),
             ],
@@ -229,7 +235,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
             child: Text(
-              _currentPage == 3 ? 'Get started' : 'Next',
+              _currentPage == 3 ? 'Começar' : 'Próximo',
               style: const TextStyle(color: Colors.white),
             ),
           ),

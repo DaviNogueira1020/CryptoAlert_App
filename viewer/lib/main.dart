@@ -25,12 +25,13 @@ void main() async {
 
   // Carrega os alertas salvos antes de abrir o app
   await AlertasService.carregar();
+  await SessaoUsuario.carregarChave();
 
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key}); 
 
   @override
   Widget build(BuildContext context) {
