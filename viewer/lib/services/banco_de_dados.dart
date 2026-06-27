@@ -3,19 +3,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ulid/ulid.dart';
 
 class BancoDeDados {
-  static late SharedPreferences _prefs;
+  static SharedPreferences? _prefs;
   final _db = FirebaseFirestore.instance;
   static const _keyLocal = 'user_key';
 
   final Map<String, Map<String, dynamic>> _cache = {};
 
+  // Inicializa o SharedPreferences. Deve ser chamado no main() antes de tudo.
   static Future<void> inicializar() async {
-  _prefs = await SharedPreferences.getInstance();
-  
-  // Conecta ao emulador local
-//  FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
-}
+    _prefs = await SharedPreferences.getInstance();
+  }
 
+  // Gera uma nova chave ULID, salva no Firestore e localmente.
   Future<String> gerarKey() async {
     final key = Ulid().toString().toLowerCase();
 
@@ -24,22 +23,24 @@ class BancoDeDados {
       'dados': {},
     });
 
-    await _prefs.setString(_keyLocal, key);
+    await _prefs?.setString(_keyLocal, key);
     return key;
   }
 
+  // Verifica se a chave existe no Firestore e salva localmente se existir.
   Future<bool> entrarComKey(String key) async {
     final doc = await _db.collection('usuarios').doc(key).get();
 
     if (doc.exists) {
-      await _prefs.setString(_keyLocal, key);
+      await _prefs?.setString(_keyLocal, key);
       return true;
     }
     return false;
   }
 
+  // Retorna a chave salva localmente, ou null se não tiver nenhuma.
   String? keySalva() {
-    return _prefs.getString(_keyLocal);
+    return _prefs?.getString(_keyLocal);
   }
 
   Map<String, dynamic>? buscarDados(String key) {
@@ -67,13 +68,13 @@ class BancoDeDados {
   }
 
   Future<void> sair() async {
-    await _prefs.remove(_keyLocal);
+    await _prefs?.remove(_keyLocal);
     _cache.clear();
   }
 
   Future<void> apagarConta(String key) async {
     await _db.collection('usuarios').doc(key).delete();
-    await _prefs.remove(_keyLocal);
+    await _prefs?.remove(_keyLocal);
     _cache.clear();
   }
 }
