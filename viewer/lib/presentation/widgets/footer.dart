@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobile/presentation/pages/alerts.dart';
 
 // Barra de navegação inferior com ícones para cada aba. Destaca a aba selecionada.
 class Footer extends StatefulWidget {
@@ -114,7 +115,7 @@ class _FooterState extends State<Footer> {
                 child: GestureDetector(
                   onTap: () {
                     _onTap(2);
-                    print('News clicked');
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const AlertsScreen()));
                   },
                   child: Center(
                     child: SvgPicture.asset(

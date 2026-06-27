@@ -1,3 +1,5 @@
+import 'package:crypto_alert_backend/core/exceptions/validation_exception.dart';
+
 enum AlertType{
   above,
   below,
@@ -20,7 +22,7 @@ extension AlertTypeExtension on AlertType{
       case 'below':
         return AlertType.below;
       default:
-        throw Exception('Invalid alert type');  
+        throw ValidationException('Invalid alert type: $value');  
     }
   }
 }

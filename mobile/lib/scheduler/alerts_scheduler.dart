@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:crypto_alert_backend/modules/alerts/alerts_checker_service.dart';
 
-class AlertsScheduler{
+class AlertsScheduler{ //TODO(Refactor): Standardize schedulers (use market_data_scheduler as standard)
   final AlertsCheckerService _checkerService = AlertsCheckerService();
 
   void start(){
