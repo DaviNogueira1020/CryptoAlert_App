@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/presentation/widgets/header.dart';
 import 'package:mobile/presentation/widgets/ticker_bar.dart';
 import 'package:mobile/presentation/widgets/footer.dart';
+import 'package:mobile/presentation/widgets/animated_background.dart';
 import 'package:mobile/presentation/pages/alerts/novo_alerta_page.dart';
 import 'package:mobile/services/alertasServices.dart';
 import 'package:mobile/models/alerta_model.dart';
@@ -249,14 +250,13 @@ class AlertasPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0B0F1A),
-      body: const Column(
+    return AnimatedBackground(
+      child: Column(
         children: [
-          Header(),
-          TickerBar(),
-          Expanded(child: AlertasPageContent()),
-          Footer(initialBottonClicked: 0),
+          const Header(),
+          const TickerBar(),
+          const Expanded(child: AlertasPageContent()),
+          const Footer(initialBottonClicked: 0),
         ],
       ),
     );

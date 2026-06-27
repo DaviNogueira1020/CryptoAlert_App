@@ -17,6 +17,15 @@ void main() async {
 
   // Inicializa SharedPreferences e conexão com Firestore
   await BancoDeDados.inicializar();
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    // Inicializar BancoDeDados em todas as plataformas
+    await BancoDeDados.inicializar();
+  } catch (e) {
+    print('Erro ao inicializar Firebase: $e');
+  }
 
   // Carrega os alertas salvos antes de abrir o app
   await AlertasService.carregar();

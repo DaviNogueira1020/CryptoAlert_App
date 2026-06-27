@@ -13,7 +13,7 @@ class AnimatedBackground extends StatelessWidget {
       body: Stack(
         children: [
           const Positioned.fill(child: ParticleBackground()),
-          child,
+          Positioned.fill(child: child),
         ],
       ),
     );

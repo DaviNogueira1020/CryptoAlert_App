@@ -3,17 +3,35 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:mobile/services/api_service.dart';
 
-// Cada item é: (nome, preço, subiu?, variação%)
-const _tickerItems = [
-  ('USDT', r'$0,999', true, '0,01%'),
-  ('XRP', r'$1', false, '0,01%'),
-  ('BND', r'$583', false, '0,02%'),
-  ('BTC', r'$85.000', true, '2,50%'),
-  ('ETH', r'$2.500', true, '1,20%'),
-  ('SOL', r'$145', false, '3,80%'),
-  ('ADA', r'$0,75', true, '0,50%'),
+// Estrutura de dados para os itens do ticker
+class TickerItem {
+  final String name;
+  String price;
+  bool up;
+  String pct;
+
+  TickerItem({
+    required this.name,
+    required this.price,
+    required this.up,
+    required this.pct,
+  });
+}
+
+// Lista de criptomoedas que aparecerão no ticker
+final _defaultTickerItems = [
+  TickerItem(name: 'USDT', price: r'$0,999', up: true, pct: '0,01%'),
+  TickerItem(name: 'XRP', price: r'$1', up: false, pct: '0,01%'),
+  TickerItem(name: 'BTC', price: r'$85.000', up: true, pct: '2,50%'),
+  TickerItem(name: 'ETH', price: r'$2.500', up: true, pct: '1,20%'),
+  TickerItem(name: 'SOL', price: r'$145', up: false, pct: '3,80%'),
+  TickerItem(name: 'ADA', price: r'$0,75', up: true, pct: '0,50%'),
+  TickerItem(name: 'DOGE', price: r'$0,18', up: true, pct: '7,40%'),
 ];
+
+const _tickerSymbols = ['USDTUSDT', 'XRPUSDT', 'BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'ADAUSDT', 'DOGEUSDT'];
 
 // StatefulWidget porque precisa manter o estado do ScrollController e do Ticker para animar a barra de cotações. Ele constrói uma ListView horizontal que se move automaticamente usando o Ticker.
 class TickerBar extends StatefulWidget {
@@ -28,13 +46,27 @@ class _TickerBarState extends State<TickerBar> with SingleTickerProviderStateMix
   late final ScrollController _scrollController;
   Ticker? _ticker;
   Duration _lastTime = Duration.zero;
+  late List<TickerItem> _tickerItems;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    _tickerItems = List.from(_defaultTickerItems);
+    _loadTickerPrices();
     // Aguarda o primeiro frame ser renderizado antes de iniciar o movimento
     WidgetsBinding.instance.addPostFrameCallback((_) => _startTicker());
+  }
+
+  Future<void> _loadTickerPrices() async {
+    for (int i = 0; i < _tickerSymbols.length; i++) {
+      final price = await ApiService.getPrice(_tickerSymbols[i]);
+      if (price != null && mounted) {
+        setState(() {
+          _tickerItems[i].price = '\$${price.toStringAsFixed(2)}';
+        });
+      }
+    }
   }
 
   void _startTicker() {
@@ -96,8 +128,8 @@ class _TickerBarState extends State<TickerBar> with SingleTickerProviderStateMix
         physics: const NeverScrollableScrollPhysics(), // impede o usuário de rolar manualmente
         itemCount: doubled.length,
         itemBuilder: (_, i) {
-          final (name, price, up, pct) = doubled[i];
-          return _buildItem(name, price, up, pct);
+          final item = doubled[i];
+          return _buildItem(item.name, item.price, item.up, item.pct);
         },
       ),
     );

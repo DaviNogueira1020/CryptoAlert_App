@@ -345,7 +345,7 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      "Login",
+                      "Entrar",
                       style: TextStyle(
                         color: _selectedButtonIndex == 1 ? Colors.white : const Color(0xFF9CA3AF),
                         fontWeight: FontWeight.bold,
@@ -394,7 +394,7 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Criar Key",
+                          "Criar Chave",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20,

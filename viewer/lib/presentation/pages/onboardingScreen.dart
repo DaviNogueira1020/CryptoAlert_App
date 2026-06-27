@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+//*import 'package:flutter/material.dart';
+import 'package:mobile/presentation/widgets/animated_background.dart';
 import 'package:mobile/presentation/pages/login.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -27,26 +28,28 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0B0F1A),
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (index) => setState(() => _currentPage = index),
-        children: [
-          _buildHomePage(),
-          _buildPresentationPage(
-            imagePath: 'assets/Presentation/presentation1.png',
-            text: 'Understand, compare and track global coins in real time',
-          ),
-          _buildPresentationPage(
-            imagePath: 'assets/Presentation/presentation2.png',
-            text: 'Don\'t find out too late. Be notified at the first sign of a drop',
-          ),
-          _buildPresentationPage(
-            imagePath: 'assets/Presentation/presentation3.png',
-            text: 'Turn information into advantage before everyone else',
-          ),
-        ],
+    return AnimatedBackground(
+      child: Scaffold(
+        backgroundColor: const Color(0xFF0B0F1A),
+        body: PageView(
+          controller: _pageController,
+          onPageChanged: (index) => setState(() => _currentPage = index),
+          children: [
+            _buildHomePage(),
+            _buildPresentationPage(
+              imagePath: 'assets/Presentation/presentation1.png',
+              text: 'Entenda, compare e acompanhe moedas globais em tempo real',
+            ),
+            _buildPresentationPage(
+              imagePath: 'assets/Presentation/presentation2.png',
+              text: 'Não descubra tarde demais. Seja notificado no primeiro sinal de queda',
+            ),
+            _buildPresentationPage(
+              imagePath: 'assets/Presentation/presentation3.png',
+              text: 'Transforme informação em vantagem antes de todos',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -76,7 +79,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           const SizedBox(height: 40),
 
           const Text(
-            'While the world sleeps,\nCriptAlert watches',
+            'Enquanto o mundo dorme,\nCriptAlert vigia',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.white,
@@ -92,7 +95,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _buildOutlineButton(
-                label: 'Login',
+                label: 'Entrar',
                 onPressed: () { 
                   print('login clicked');
                   Navigator.push(
@@ -104,7 +107,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
               const SizedBox(width: 12),
               _buildOutlineButton(
-                label: 'Sign up',
+                label: 'Cadastrar',
                 onPressed: () { 
                   print('sign up clicked');
                   Navigator.push(
@@ -131,7 +134,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
               child: const Text(
-                'Discover more',
+                'Explorar mais',
                 style: TextStyle(color: Colors.white),
               ),
             ),

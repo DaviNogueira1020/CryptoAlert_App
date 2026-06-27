@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:mobile/presentation/widgets/header.dart';
 import 'package:mobile/presentation/widgets/footer.dart';
 import 'package:mobile/presentation/widgets/ticker_bar.dart';
+import 'package:mobile/presentation/widgets/animated_background.dart';
 import 'package:mobile/models/alerta_model.dart';
 import 'package:mobile/services/alertasServices.dart';
 
@@ -156,9 +157,8 @@ class _NovoAlertaPageState extends State<NovoAlertaPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0B0F1A),
-      body: Column(
+    return AnimatedBackground(
+      child: Column(
         children: [
           const Header(),
           const TickerBar(),

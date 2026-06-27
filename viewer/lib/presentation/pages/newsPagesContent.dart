@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:mobile/presentation/widgets/animated_background.dart';
+import 'package:mobile/services/api_service.dart';
 
 // ---------------------------------------------------------------------------
 // Data models
@@ -20,12 +22,12 @@ class TrendingCoin {
 }
 
 class NewsArticle {
-  final String title;
-  final String subtitle;
-  final String date;
-  final String url;
+  String title;
+  String subtitle;
+  String date;
+  String url;
 
-  const NewsArticle({
+  NewsArticle({
     required this.title,
     required this.subtitle,
     required this.date,
@@ -142,8 +144,10 @@ class _NewsPageContentState extends State<NewsPageContent> {
   @override
   void initState() {
     super.initState();
-    // Auto-refresh every 30 seconds (mock – plug real fetch here)
+    // Auto-refresh every 30 seconds
     _refreshTimer = Timer.periodic(const Duration(seconds: 30), (_) => _refresh());
+    // Load notifications on startup
+    _refresh();
   }
 
   @override
@@ -156,8 +160,26 @@ class _NewsPageContentState extends State<NewsPageContent> {
   Future<void> _refresh() async {
     if (_isRefreshing) return;
     setState(() => _isRefreshing = true);
-    // TODO: replace with real fetch from Coindesk RSS / API
-    await Future.delayed(const Duration(milliseconds: 800));
+    
+    try {
+      final notifications = await ApiService.getNotifications();
+      
+      if (notifications != null && mounted) {
+        setState(() {
+          _articles = notifications.map((notif) {
+            return NewsArticle(
+              title: notif['title'] ?? 'Sem título',
+              subtitle: notif['message'] ?? '',
+              date: notif['createdAt'] ?? DateTime.now().toString(),
+              url: '',
+            );
+          }).toList();
+        });
+      }
+    } catch (e) {
+      print('Erro ao carregar notificações: $e');
+    }
+    
     if (mounted) setState(() => _isRefreshing = false);
   }
 
