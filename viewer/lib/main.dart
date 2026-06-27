@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mobile/presentation/pages/login.dart';
@@ -10,28 +11,31 @@ import 'package:mobile/services/sessao_usuario.dart';
 import 'firebase_options.dart';
 import 'services/banco_de_dados.dart';
 
+// importa tua tela Loading
+import 'package:mobile/presentation/pages/loading.dart'; // ajusta o caminho
+
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding); // segura a splash nativa
 
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    // Inicializar BancoDeDados em todas as plataformas
     await BancoDeDados.inicializar();
   } catch (e) {
     print('Erro ao inicializar Firebase: $e');
   }
 
-  // Carrega os alertas salvos antes de abrir o app
   await AlertasService.carregar();
   await SessaoUsuario.carregarChave();
 
+  FlutterNativeSplash.remove(); // remove a splash nativa, entra o Flutter
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key}); 
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +45,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: SessaoUsuario.chave.isEmpty
-        ? const OnboardingScreen()
-        : const MainShell(initialIndex: 1),
+      home: const Loading(), // começa na Loading, ela redireciona depois
     );
   }
 }

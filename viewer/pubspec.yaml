@@ -27,6 +27,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  flutter_native_splash: ^2.4.0
+  flutter_launcher_icons: ^0.14.3
 
 flutter:
   assets:
@@ -38,3 +40,21 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+flutter_native_splash:
+  color: "#000000"
+  image: assets/Logo/CriptAlert.png
+  color_dark: "#000000"
+  image_dark: assets/Logo/CriptAlert.png
+  android_12:
+    color: "#000000"
+    icon_background_color: "#000000"
+    image: assets/Logo/CriptAlert.png
+  
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/Logo/CriptAlert.png"
+  # opcional: ícone adaptativo Android (fundo colorido)
+  adaptive_icon_background: "#0D0D0D"
+  adaptive_icon_foreground: "assets/Logo/CriptAlert.png"
