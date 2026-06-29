@@ -169,8 +169,8 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
                 ),
                 const SizedBox(height: 10),
                 GestureDetector(
-                  onTap: copiado ? () {
-                    SessaoUsuario.salvarChave(key);
+                  onTap: copiado ? () async {
+                    await SessaoUsuario.salvarChave(key);
                     
                     Navigator.of(context).pop();
                     _irParaIndex();
@@ -262,7 +262,7 @@ class LoginState extends State<Login> with SingleTickerProviderStateMixin {
       final banco = BancoDeDados();
       final ok = await banco.entrarComKey(key);
       if (ok) {
-        SessaoUsuario.salvarChave(key);
+        await SessaoUsuario.salvarChave(key);
         _irParaIndex();
       } else {
         setState(() { _erro = 'Chave não encontrada.'; });
